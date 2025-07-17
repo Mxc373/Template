@@ -1,0 +1,272 @@
+port: 7890
+socks-port: 7891
+redir-port: 7892
+mixed-port: 7893
+tproxy-port: 7894
+allow-lan: true
+bind-address: '*'
+mode: rule
+log-level: info
+ipv6: true
+
+external-controller: '127.0.0.1:9090'
+
+dns:
+  enable: true
+  listen: 0.0.0.0:1053 
+  ipv6: true 
+  enhanced-mode: fake-ip 
+  fake-ip-range: 198.18.0.1/16 
+  fake-ip-filter-mode: blacklist
+  fake-ip-filter:
+    - '*.lan'
+    - '*.local'
+    - localhost.ptlogin2.qq.com
+    - +.stun.*.*
+    - +.stun.*.*.*
+    - +.stun.*.*.*.*
+    - +.stun.*.*.*.*.*
+    - "RULE-SET,private_domain"
+    - "RULE-SET,cn_domain"
+
+  default-nameserver:
+    - 223.5.5.5 # AliDNS
+    - 119.29.29.29 # DNSPod
+    - https://doh.pub/dns-query 
+  proxy-server-nameserver:
+    - https://dns.google/dns-query
+    - https://cloudflare-dns.com/dns-query
+  fallback:
+    - tls://1.0.0.1:853
+    - tls://dns.google:853
+  respect-rules: false
+  use-hosts: true
+
+sniffer:
+  enable: true
+  sniff:
+    - TLS
+    - HTTP
+    - QUIC
+  force-domain:
+    - '+.v2ex.com'
+  skip-domain:
+    - 'Mijia Cloud'
+    - '+.baidu.com'
+
+tun:
+  enable: true
+  stack: system 
+  auto-route: true
+  auto-detect-interface: true
+  dns-hijack:
+    - 'any:53'
+
+proxy-providers:
+  Airport:
+    type: http
+    url: {{{sub_link}}}
+    interval: 86400 
+    path:./proxies/airport.yaml
+    health-check:
+      enable: true
+      url: https://www.gstatic.com/generate_204
+      interval: 300 
+      proxy: DIRECT
+
+rule-providers:
+  ad_domain:
+    type: http
+    behavior: domain
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/ad-domain.txt"
+    path:./ruleset/ad_domain.txt
+    interval: 86400
+  private_domain:
+    type: http
+    behavior: domain
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/private-domain.txt"
+    path:./ruleset/private_domain.txt
+    interval: 86400
+  cn_domain:
+    type: http
+    behavior: domain
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/cn-domain.txt"
+    path:./ruleset/cn_domain.txt
+    interval: 86400
+  cn_ip:
+    type: http
+    behavior: ipcidr
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/cn-ip.txt"
+    path:./ruleset/cn_ip.txt
+    interval: 86400
+  geolocation-!cn:
+    type: http
+    behavior: domain
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geolocation-!cn-domain.txt"
+    path:./ruleset/geolocation-!cn.txt
+    interval: 86400
+  netflix_domain:
+    type: http
+    behavior: domain
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/netflix-domain.txt"
+    path:./ruleset/netflix_domain.txt
+    interval: 86400
+  youtube_domain:
+    type: http
+    behavior: domain
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/youtube-domain.txt"
+    path:./ruleset/youtube_domain.txt
+    interval: 86400
+  google_domain:
+    type: http
+    behavior: domain
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/google-domain.txt"
+    path:./ruleset/google_domain.txt
+    interval: 86400
+  telegram_domain:
+    type: http
+    behavior: domain
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/telegram-domain.txt"
+    path:./ruleset/telegram_domain.txt
+    interval: 86400
+  ai:
+    type: http
+    behavior: domain
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/ai-domain.txt"
+    path:./ruleset/ai.txt
+    interval: 86400
+
+proxy-groups:
+  - name: '🚀 默认代理'
+    type: select
+    proxies:
+      - '♻️ 自动'
+      - '🔯 故障转移'
+      - '🇰🇷 韩国'
+      - '🇸🇬 新加坡'
+      - '🇺🇸 美国'
+      - '🌐 全部节点'
+      - '🎯 直连'
+
+  - name: '🎥 NETFLIX'
+    type: select
+    proxies:
+      - '♻️ 自动'
+      - '🔯 故障转移'
+      - '🇸🇬 新加坡'
+      - '🇺🇸 美国'
+      - '🌐 全部节点'
+  - name: '📹 YouTube'
+    type: select
+    proxies:
+      - '♻️ 自动'
+      - '🔯 故障转移'
+      - '🇰🇷 韩国'
+      - '🇸🇬 新加坡'
+      - '🇺🇸 美国'
+      - '🌐 全部节点'
+  - name: '🍀 Google'
+    type: select
+    proxies:
+      - '♻️ 自动'
+      - '🔯 故障转移'
+      - '🇰🇷 韩国'
+      - '🇸🇬 新加坡'
+      - '🇺🇸 美国'
+      - '🌐 全部节点'
+  - name: '🤖 ChatGPT'
+    type: select
+    proxies:
+      - '♻️ 自动'
+      - '🔯 故障转移'
+      - '🇰🇷 韩国'
+      - '🇸🇬 新加坡'
+      - '🇺🇸 美国'
+      - '🌐 全部节点'
+  - name: '📲 Telegram'
+    type: select
+    proxies:
+      - '♻️ 自动'
+      - '🔯 故障转移'
+      - '🇸🇬 新加坡'
+      - '🇰🇷 韩国'
+      - '🇺🇸 美国'
+      - '🌐 全部节点'
+
+  - name: '♻️ 自动'
+    type: url-test
+    url: 'https://www.gstatic.com/generate_204'
+    interval: 300
+    tolerance: 20 
+    use:
+      - Airport
+  - name: '🔯 故障转移'
+    type: fallback
+    url: 'https://www.gstatic.com/generate_204'
+    interval: 300
+    use:
+      - Airport
+
+  - name: '🇰🇷 韩国'
+    type: select
+    use:
+      - Airport
+    filter: '(?i)韩|Korea|KR|🇰🇷|ICN'
+  - name: '🇸🇬 新加坡'
+    type: select
+    use:
+      - Airport
+    filter: '(?i)新|Singapore|SG|🇸🇬|SGW|SIN'
+  - name: '🇺🇸 美国'
+    type: select
+    use:
+      - Airport
+    filter: '(?i)美|US|United States|🇺🇸|ORD'
+  - name: '🌐 全部节点'
+    type: select
+    use:
+      - Airport
+
+  - name: '🎯 直连'
+    type: select
+    proxies:
+      - DIRECT
+  - name: '🚫 广告拦截'
+    type: select
+    proxies:
+      - REJECT
+  - name: '🍎 Apple服务'
+    type: select
+    proxies:
+      - DIRECT
+      - '🚀 默认代理'
+  - name: '🐟 漏网之鱼'
+    type: select
+    proxies:
+      - '🚀 默认代理'
+      - DIRECT
+
+rules:
+  - DOMAIN-SUFFIX,local,DIRECT
+  - IP-CIDR,127.0.0.0/8,DIRECT
+  - IP-CIDR,172.16.0.0/12,DIRECT
+  - IP-CIDR,192.168.0.0/16,DIRECT
+  - IP-CIDR,10.0.0.0/8,DIRECT
+  - IP-CIDR,198.18.0.0/16,DIRECT 
+  - RULE-SET,private_domain,DIRECT 
+
+  - RULE-SET,ad_domain,REJECT
+
+  - RULE-SET,netflix_domain,🎥 NETFLIX
+  - RULE-SET,youtube_domain,📹 YouTube
+  - RULE-SET,google_domain,🍀 Google
+  - RULE-SET,telegram_domain,📲 Telegram
+  - RULE-SET,ai,🤖 ChatGPT
+  - DOMAIN-KEYWORD,apple,🍎 Apple服务
+  - DOMAIN-KEYWORD,icloud,🍎 Apple服务
+
+  - RULE-SET,geolocation-!cn,🚀 默认代理
+  - RULE-SET,cn_domain,🎯 直连
+  - RULE-SET,cn_ip,🎯 直连
+
+  - MATCH,🐟 漏网之鱼
