@@ -2,13 +2,13 @@ proxy-providers:
   Airport1:
     url: "==MY_SUB_LINK=="
     type: http
-    interval: 604800
+    interval: 3600
     health-check:
       enable: true
       url: https://www.gstatic.com/generate_204
       interval: 300
     proxy: 直连
-
+   
 proxies:
   - {name: 直连, type: direct}
  
@@ -85,7 +85,6 @@ dns:
     - "+.msftconnecttest.com"
     - "+.msftncsi.com"
     - "time.*.com"
-    - "+.store.919373.xyz"
     - "+.919373.xyz"
   default-nameserver:
     - 223.5.5.5
@@ -96,50 +95,51 @@ dns:
     - 211.136.192.6
     - 223.5.5.5
 
-pr: &pr {type: select, proxies: [🛫自动,🚀默认,♿️手动,🚥故转,🇸🇬新加坡,🇺🇲美国,🇰🇷韩国,🇭🇰香港,🇹🇼台湾,🇯🇵日本,直连]}
+pr: &pr {type: select, proxies: [🛫 自动,🚀 默认,♿️ 手动,🚥 故转,🇸🇬 新加坡,🇺🇲 美国,🇰🇷 韩国,🇭🇰 香港,🇹🇼 台湾,🇯🇵 日本,直连]}
 proxy-groups:
-  - {name: 🚀默认, type: select, proxies: [🛫自动,♿️手动,🚥故转,🇸🇬新加坡,🇺🇲美国,🇰🇷韩国,🇭🇰香港,🇹🇼台湾,🇯🇵日本,直连]}
-  - {name: 🛫自动, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "^((?!(直连)).)*$"}
-  - {name: ♿️手动, type: select, include-all: true}
-  - {name: ✧AI, <<: *pr}
-  - {name: 🅱️B站, <<: *pr}
-  - {name: 🎬油管, <<: *pr}
-  - {name: 🎵洋抖, <<: *pr}
-  - {name: 💫谷歌, <<: *pr}
-  - {name: 📳电报, <<: *pr}
+  - {name: 🚀 默认, type: select, proxies: [🛫 自动,♿️ 手动,🚥 故转,🇸🇬 新加坡,🇺🇲 美国,🇰🇷 韩国,🇭🇰 香港,🇹🇼 台湾,🇯🇵 日本,直连]}
+  - {name: bilibili, type: select, proxies: [直连,🇭🇰 香港,🇹🇼 台湾], icon: "https://raw.githubusercontent.com/Vbaethon/HOMOMIX/main/Icon/Color/Bilibili_Global.png"}
+  - {name: Steam, <<: *pr, icon: "https://raw.githubusercontent.com/Vbaethon/HOMOMIX/main/Icon/Color/Steam.png"}
+  - {name: YouTube, <<: *pr, icon: "https://raw.githubusercontent.com/Vbaethon/HOMOMIX/main/Icon/Color/YouTube.png"}
+  - {name: Google, <<: *pr, icon: "https://raw.githubusercontent.com/Vbaethon/HOMOMIX/main/Icon/Color/Google.png"}
+  - {name: AI, type: select, proxies: [🇺🇲 美国,♿️ 手动,🇸🇬 新加坡,🇹🇼 台湾,🇰🇷 韩国, 🇯🇵 日本,], icon: "https://raw.githubusercontent.com/Vbaethon/HOMOMIX/main/Icon/Color/AI.png"}
+  - {name: TikTok, <<: *pr, icon: "https://raw.githubusercontent.com/Vbaethon/HOMOMIX/main/Icon/Color/TikTok.png"}
+  - {name: Telegram, <<: *pr, icon: "https://raw.githubusercontent.com/Vbaethon/HOMOMIX/main/Icon/Color/Telegram.png"}
+  - {name: NETFLIX, <<: *pr, icon: "https://raw.githubusercontent.com/Vbaethon/HOMOMIX/main/Icon/Color/Netflix_b.png"}
   - {name: 📦其他, <<: *pr}
-  - {name: 🎮Steam, <<: *pr}
-  - {name: 🆖广告, type: select, proxies: [REJECT,直连]}
-  - {name: 🎯直连, type: select, proxies: [直连,🚀默认]}
-  - {name: 🚥故转, type: fallback, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*((?i)新|Singapore))^((?!(台|日|韩|深|美)).)*$"}
-  - {name: 🇺🇸美国, type: url-test, include-all: true, filter: "(?i)美|芝加哥"}
-  - {name: 🇸🇬新加坡, type: url-test, include-all: true, filter: "(?i)新|Singapore"}
-  - {name: 🇰🇷韩国, type: url-test, include-all: true, filter: "(?i)韩|首尔|春川"}
-  - {name: 🇭🇰香港, type: url-test, include-all: true, filter: "(?i)香港|HongKong"}
-  - {name: 🇹🇼台湾, type: url-test, include-all: true, filter: "(?i)台|Taiwan|taiwan|TW"}
-  - {name: 🇯🇵日本, type: url-test, include-all: true, filter: "(?i)日|东京|jp|japan"}
+  - {name: 🆖 广告, type: select, proxies: [REJECT,直连]}
+  - {name: 🎯 直连, type: select, proxies: [直连,🚀 默认]}
+  - {name: 🚥 故转, type: fallback, include-all: true, tolerance: 20, interval: 600, filter: "(?=.*((?i)新|Singapore|SG|SGW|SIN))^((?!(台|日|韩|深|美)).)*$"}
+  - {name: 🛫 自动, type: url-test, include-all: true, tolerance: 20, interval: 600, filter: "^((?!(直连)).)*$"}
+  - {name: ♿️ 手动, type: select, include-all: true}
+  - {name: 🇺🇲 美国, type: url-test, include-all: true, filter: "(?i)美|芝加哥|us|unitedstates|united states|ORD"}
+  - {name: 🇸🇬 新加坡, type: url-test, include-all: true, filter: "(?i)新|Singapore|SG|SGW|SIN"}
+  - {name: 🇰🇷 韩国, type: url-test, include-all: true, filter: "(?i)韩|首尔|春川|Korea|KR|ICN"}
+  - {name: 🇭🇰 香港, type: url-test, include-all: true, filter: "(?i)港|hk|hongkong|hong kong"}
+  - {name: 🇹🇼 台湾, type: url-test, include-all: true, filter: "(?i)台|Taiwan|taiwan|TW"}
+  - {name: 🇯🇵 日本, type: url-test, include-all: true, filter: "(?i)日|东京|jp|japan"}
 
 rules:
-  - DOMAIN-SUFFIX,919373.xyz,🎯直连
-  - DST-PORT,22,🎯直连 
+  - DST-PORT,22,🎯 直连 
+  - DOMAIN-SUFFIX,919373.xyz,直连
   - RULE-SET,private_domain, 直连
-  - RULE-SET,reject_domain,🆖广告
+  - RULE-SET,reject_domain,🆖 广告
   - RULE-SET,bilibili_domain,bilibili
   - RULE-SET,steam_domain,Steam
-  - RULE-SET,proxylite,🚀默认
+  - RULE-SET,proxylite,🚀 默认
   - RULE-SET,ai_domain,AI
   - RULE-SET,youtube_domain,YouTube
   - RULE-SET,google_domain,Google
   - RULE-SET,tiktok_domain,TikTok
   - RULE-SET,telegram_domain,Telegram
   - RULE-SET,netflix_domain,NETFLIX
-  - RULE-SET,gfw_domain,🚀默认
-  - RULE-SET,geolocation-!cn,🚀默认
-  - RULE-SET,cn_domain,🎯直连
+  - RULE-SET,gfw_domain,🚀 默认
+  - RULE-SET,geolocation-!cn,🚀 默认
+  - RULE-SET,cn_domain,🎯 直连
   - RULE-SET,google_ip,Google,no-resolve
   - RULE-SET,netflix_ip,NETFLIX,no-resolve
   - RULE-SET,telegram_ip,Telegram,no-resolve
-  - RULE-SET,cn_ip,🎯直连
+  - RULE-SET,cn_ip,🎯 直连
   - MATCH,📦其他
 
 
@@ -152,7 +152,7 @@ rule-providers:
   private_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.mrs"}
   bilibili_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/bilibili.mrs"}
   steam_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/steam.mrs"}
-  proxylite: { <<: *class, url: "https://raw.githubusercontent.com/qichiyuhub/rule/refs/heads/master/ProxyLite.list"}
+  proxylite: { <<: *class, url: "https://raw.githubusercontent.com/Mxc373/Template/refs/heads/main/Direct.list"}
   ai_domain: {  <<: *domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-ai-!cn.mrs" }
   youtube_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/youtube.mrs"}
   google_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.mrs"}
@@ -167,3 +167,4 @@ rule-providers:
   google_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/google.mrs"}
   telegram_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/telegram.mrs"}
   netflix_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/netflix.mrs"}
+
