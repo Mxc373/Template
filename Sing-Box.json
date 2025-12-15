@@ -56,18 +56,6 @@
       "sniff": true
     }
   ],
-  "outbound_providers": [
-    {
-      "type": "remote",
-      "tag": "Airport1",
-      "download_url": "==NODE_LINK==",
-      "path": "./nodes.json",
-      "download_interval": "1h",
-      "download_detour": "🎯 直连",
-      "healthcheck_url": "https://www.gstatic.com/generate_204",
-      "healthcheck_interval": "10m"
-    }
-  ],
   "outbounds": [
     {
       "type": "selector",
@@ -353,3 +341,4 @@
     "auto_detect_interface": true
   }
 }
+
