@@ -24,15 +24,15 @@
       { "outbound": "any", "server": "alidns" },
       { "clash_mode": "Direct", "server": "alidns" },
       { "clash_mode": "Global", "server": "google" },
+      { "rule_set": "geosite-category-ads-all", "server": "block" },
       { "rule_set": "geosite-cn", "server": "alidns" },
-      { "rule_set": "geosite-category-ads-all", "server": "block" }
+      { "domain_suffix": [".msftconnecttest.com", ".msftncsi.com", "time.windows.com", "time.nist.gov", "time.apple.com"], "server": "alidns" }
     ],
     "final": "google",
     "strategy": "ipv4_only",
-    "independent_cache": true,
     "fakeip": {
       "enabled": true,
-      "inet4_range": "198.18.0.0/15"
+      "inet4_range": "28.0.0.1/8"
     }
   },
   "inbounds": [
@@ -76,71 +76,34 @@
     {
       "type": "urltest",
       "tag": "🛫 自动",
-      "providers": ["Airport1"],
+      "outbounds": [],
       "tolerance": 20,
       "interval": "5m"
     },
     {
       "type": "selector",
       "tag": "♿️ 手动",
-      "providers": ["Airport1"]
+      "outbounds": []
     },
     {
       "type": "urltest",
       "tag": "🚥 故转",
-      "providers": ["Airport1"],
-      "includes": ["新", "Singapore", "SG"],
+      "outbounds": [],
       "tolerance": 20,
       "interval": "5m"
     },
-
-    {
-      "type": "urltest",
-      "tag": "🇺🇸 美国",
-      "providers": ["Airport1"],
-      "includes": ["美", "States", "US"],
-      "tolerance": 50
-    },
-    {
-      "type": "urltest",
-      "tag": "🇸🇬 新加坡",
-      "providers": ["Airport1"],
-      "includes": ["新", "Singapore", "SG"],
-      "tolerance": 50
-    },
-    {
-      "type": "urltest",
-      "tag": "🇰🇷 韩国",
-      "providers": ["Airport1"],
-      "includes": ["韩", "KR", "Korea", "首尔", "春川"],
-      "tolerance": 50
-    },
-    {
-      "type": "urltest",
-      "tag": "🇭🇰 香港",
-      "providers": ["Airport1"],
-      "includes": ["港", "HK", "HongKong"],
-      "tolerance": 50
-    },
-    {
-      "type": "urltest",
-      "tag": "🇹🇼 台湾",
-      "providers": ["Airport1"],
-      "includes": ["台", "TW", "Taiwan"],
-      "tolerance": 50
-    },
-    {
-      "type": "urltest",
-      "tag": "🇯🇵 日本",
-      "providers": ["Airport1"],
-      "includes": ["日", "JP", "Japan", "东京"],
-      "tolerance": 50
-    },
+    
+    { "type": "urltest", "tag": "🇸🇬 新加坡", "outbounds": [], "tolerance": 50 },
+    { "type": "urltest", "tag": "🇺🇸 美国", "outbounds": [], "tolerance": 50 },
+    { "type": "urltest", "tag": "🇰🇷 韩国", "outbounds": [], "tolerance": 50 },
+    { "type": "urltest", "tag": "🇭🇰 香港", "outbounds": [], "tolerance": 50 },
+    { "type": "urltest", "tag": "🇹🇼 台湾", "outbounds": [], "tolerance": 50 },
+    { "type": "urltest", "tag": "🇯🇵 日本", "outbounds": [], "tolerance": 50 },
 
     {
       "type": "selector",
       "tag": "✧ AI",
-      "outbounds": ["🛫 自动", "🚀 默认", "🇺🇸 美国", "🇸🇬 新加坡", "🇯🇵 日本", "🎯 直连"]
+      "outbounds": ["🚀 默认", "🇺🇸 美国", "🇸🇬 新加坡", "🇯🇵 日本", "🎯 直连"]
     },
     {
       "type": "selector",
@@ -150,32 +113,32 @@
     {
       "type": "selector",
       "tag": "🎬 油管",
-      "outbounds": ["🛫 自动", "🚀 默认", "🇸🇬 新加坡", "🇺🇸 美国", "🇭🇰 香港", "🎯 直连"]
+      "outbounds": ["🚀 默认", "🇸🇬 新加坡", "🇺🇸 美国", "🇭🇰 香港", "🎯 直连"]
     },
     {
       "type": "selector",
       "tag": "🎵 洋抖",
-      "outbounds": ["🛫 自动", "🚀 默认", "🇺🇸 美国", "🇯🇵 日本", "🎯 直连"]
+      "outbounds": ["🚀 默认", "🇺🇸 美国", "🇯🇵 日本", "🎯 直连"]
     },
     {
       "type": "selector",
       "tag": "💫 谷歌",
-      "outbounds": ["🛫 自动", "🚀 默认", "🎯 直连"]
+      "outbounds": ["🚀 默认", "🎯 直连"]
     },
     {
       "type": "selector",
       "tag": "📳 电报",
-      "outbounds": ["🛫 自动", "🚀 默认", "🇸🇬 新加坡", "🇺🇸 美国", "🎯 直连"]
+      "outbounds": ["🚀 默认", "🇸🇬 新加坡", "🇺🇸 美国", "🎯 直连"]
     },
     {
       "type": "selector",
       "tag": "🎮 Steam",
-      "outbounds": ["🎯 直连", "🛫 自动", "🚀 默认"]
+      "outbounds": ["🎯 直连", "🚀 默认"]
     },
     {
       "type": "selector",
       "tag": "📦 其他",
-      "outbounds": ["🛫 自动", "🚀 默认", "🎯 直连"]
+      "outbounds": ["🚀 默认", "🎯 直连"]
     },
     {
       "type": "selector",
@@ -196,6 +159,7 @@
     "rules": [
       { "protocol": "dns", "outbound": "dns-out" },
       { "domain_suffix": ["919373.xyz"], "outbound": "🎯 直连" },
+      { "port": 22, "outbound": "🎯 直连" },
       
       { "rule_set": "geosite-category-ads-all", "outbound": "🆖 广告" },
       { "rule_set": "geosite-private", "outbound": "🎯 直连" },
@@ -209,12 +173,13 @@
       { "rule_set": "geosite-netflix", "outbound": "🎬 油管" },
       { "rule_set": "geosite-gfw", "outbound": "🚀 默认" },
       { "rule_set": "geosite-geolocation-!cn", "outbound": "🚀 默认" },
+      
       { "rule_set": "geosite-cn", "outbound": "🎯 直连" },
-
+      { "rule_set": "geoip-cn", "outbound": "🎯 直连" },
+      
       { "rule_set": "geoip-google", "outbound": "💫 谷歌" },
       { "rule_set": "geoip-telegram", "outbound": "📳 电报" },
-      { "rule_set": "geoip-netflix", "outbound": "🎬 油管" },
-      { "rule_set": "geoip-cn", "outbound": "🎯 直连" }
+      { "rule_set": "geoip-netflix", "outbound": "🎬 油管" }
     ],
     "rule_set": [
       {
@@ -341,4 +306,3 @@
     "auto_detect_interface": true
   }
 }
-
