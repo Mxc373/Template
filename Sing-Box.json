@@ -148,7 +148,7 @@
     {
       "type": "selector",
       "tag": "🎯 直连",
-      "outbounds": ["direct", "🚀 默认"]
+      "outbounds": ["direct", "block"]
     },
     
     { "type": "direct", "tag": "direct" },
@@ -306,3 +306,4 @@
     "auto_detect_interface": true
   }
 }
+
