@@ -1,16 +1,36 @@
 {
   "log": {
+    "disabled": false,
     "level": "warn",
     "timestamp": true
   },
-  "experimental": {
-    "cache_file": {
-      "enabled": true,
-      "path": "cache.db",
-      "store_fakeip": true
-    }
-  },
   "dns": {
+    "rules": [
+      {
+        "clash_mode": "Global",
+        "server": "remote"
+      },
+      {
+        "clash_mode": "Direct",
+        "server": "local"
+      },
+      {
+        "rule_set": [
+          "geosite-cn",
+          "geosite-private",
+          "geosite-apple-cn",
+          "geosite-fakeip-filter",
+          "geoip-cn"
+        ],
+        "server": "local"
+      },
+      {
+        "rule_set": [
+          "geosite-ads"
+        ],
+        "server": "block"
+      }
+    ],
     "servers": [
       {
         "tag": "remote",
@@ -25,39 +45,23 @@
         "detour": "DIRECTLY"
       },
       {
+        "tag": "block",
+        "type": "rcode",
+        "rcode": "success"
+      },
+      {
         "tag": "fakeip",
-        "type": "fakeip"
+        "type": "fakeip",
+        "inet4_range": "198.18.0.0/16"
       }
     ],
-    "rules": [
-      {
-        "rule_set": "geosite-ads",
-        "action": "reject",
-        "method": "default"
-      },
-      {
-        "rule_set": [
-          "geosite-cn",
-          "geosite-private",
-          "geosite-apple-cn",
-          "geosite-fakeip-filter",
-          "geoip-cn"
-        ],
-        "server": "local"
-      },
-      {
-        "query_type": [
-          "A",
-          "AAAA"
-        ],
-        "server": "fakeip"
-      }
-    ],
-    "final": "remote",
-    "strategy": "prefer_ipv4",
-    "fakeip": {
+    "strategy": "prefer_ipv4"
+  },
+  "experimental": {
+    "cache_file": {
       "enabled": true,
-      "inet4_range": "198.18.0.0/16"
+      "path": "cache.db",
+      "store_fakeip": true
     }
   },
   "inbounds": [
@@ -115,7 +119,8 @@
         "🇯🇵 日本节点",
         "🇰🇷 韩国自动",
         "🇰🇷 韩国节点",
-        "🏳️‍🌈 其他地区"
+        "🏳️‍🌈 其他地区",
+        "🎯 Direct"
       ]
     },
     {
@@ -298,50 +303,34 @@
       "type": "selector",
       "tag": "🐟 漏网之鱼",
       "outbounds": [
+        "🚀 节点选择",
         "🛫 自动选择",
-        "♿️ 手动选择",
-        "🇸🇬 新加坡自动",
-        "🇸🇬 新加坡节点",
-        "🇭🇰 香港自动",
-        "🇭🇰 香港节点",
-        "🇺🇸 美国自动",
-        "🇺🇸 美国节点",
-        "🇹🇼 台湾自动",
-        "🇹🇼 台湾节点",
-        "🇯🇵 日本自动",
-        "🇯🇵 日本节点",
-        "🇰🇷 韩国自动",
-        "🇰🇷 韩国节点",
-        "🏳️‍🌈 其他地区",
         "🎯 Direct"
-      ]
-    },
-    {
-      "type": "selector",
-      "tag": "🛑 广告拦截",
-      "outbounds": [
-        "block",
-        "DIRECTLY"
       ]
     },
     {
       "type": "direct",
       "tag": "DIRECTLY"
-    },
-    {
-      "type": "block",
-      "tag": "block"
-    },
-    {
-      "type": "dns",
-      "tag": "dns-out"
     }
   ],
   "route": {
+    "auto_detect_interface": true,
+    "default_domain_resolver": "local",
     "rules": [
       {
+        "action": "sniff"
+      },
+      {
         "protocol": "dns",
-        "outbound": "dns-out"
+        "action": "hijack-dns"
+      },
+      {
+        "clash_mode": "Direct",
+        "outbound": "DIRECTLY"
+      },
+      {
+        "clash_mode": "Global",
+        "outbound": "🚀 节点选择"
       },
       {
         "port": 22,
@@ -356,7 +345,7 @@
       },
       {
         "rule_set": "geosite-ads",
-        "outbound": "🛑 广告拦截"
+        "action": "reject"
       },
       {
         "rule_set": "geosite-fakeip-filter",
@@ -413,7 +402,6 @@
       }
     ],
     "final": "🐟 漏网之鱼",
-    "auto_detect_interface": true,
     "rule_set": [
       {
         "tag": "geosite-ads",
