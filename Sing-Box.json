@@ -15,6 +15,10 @@
         "server": "local"
       },
       {
+        "rule_set": "geosite-ads",
+        "server": "block"
+      },
+      {
         "rule_set": [
           "geosite-cn",
           "geosite-private",
@@ -25,29 +29,32 @@
         "server": "local"
       },
       {
-        "rule_set": [
-          "geosite-ads"
+        "query_type": [
+          "A",
+          "AAAA"
         ],
-        "server": "block"
+        "server": "fakeip"
       }
     ],
     "servers": [
       {
         "tag": "remote",
-        "type": "udp",
-        "server": "8.8.8.8",
+        "type": "https",
+        "server": "1.1.1.1",
         "detour": "🚀 节点选择"
       },
       {
         "tag": "local",
-        "type": "udp",
+        "type": "https",
         "server": "223.5.5.5",
+        "tag": "local",
         "detour": "DIRECTLY"
       },
       {
         "tag": "block",
-        "type": "rcode",
-        "rcode": "success"
+        "type": "hosts",
+        "path": [],
+        "predefined": {}
       },
       {
         "tag": "fakeip",
@@ -55,7 +62,7 @@
         "inet4_range": "198.18.0.0/16"
       }
     ],
-    "strategy": "prefer_ipv4"
+    "strategy": "ipv4_only"
   },
   "experimental": {
     "cache_file": {
