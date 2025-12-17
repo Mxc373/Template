@@ -101,8 +101,8 @@
     {
       "type": "mixed",
       "tag": "mixed-in",
-      "listen": "::",
-      "listen_port": 7893,
+      "listen": "127.0.0.1",
+      "listen_port": 7901,
       "sniff": true
     }
   ],
@@ -558,5 +558,6 @@
     ]
   }
 }
+
 
 
