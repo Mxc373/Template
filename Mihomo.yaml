@@ -1,104 +1,22 @@
-# 代理提供者 (机场订阅)
-proxy-providers:
-  Airport1:
-    url: "==MY_SUB_LINK==" 
-    type: http
-    interval: 86400
-    health-check: { enable: true, url: https://cp.cloudflare.com/generate_204, interval: 600 }
-    proxy: DIRECTLY
-
-proxies:
-  - { name: DIRECTLY, type: direct, udp: true }
-# DNS 设置
-dns:
-  enable: true 
-  ipv6: true 
-  listen: 0.0.0.0:1053 
-  prefer-h3: false  
-  respect-rules: true  
-  cache-algorithm: arc 
-  cache-size: 2048 
-
-  use-hosts: false 
-  use-system-hosts: false 
-  
-  enhanced-mode: fake-ip 
-  fake-ip-range: 198.18.0.1/16 
-  fake-ip-filter-mode: blacklist
-  fake-ip-filter:
-    - "rule-set:private_domain,cn_domain"
-    - "geosite:connectivity-check"
-    - "geosite:private"
-    - "rule-set:fake_ip_filter_DustinWin"
-  default-nameserver:
-    - 1.1.1.1 
-    - 8.8.8.8 
-  nameserver: 
-    - https://1.1.1.1/dns-query 
-    - https://dns.google/dns-query 
-    - 1.1.1.1 
-    - 8.8.8.8 
-  nameserver-policy:
-    "geosite:cn,private": 
-      - https://223.5.5.5/dns-query 
-      - https://doh.pub/dns-query 
-      - 223.5.5.5 
-      - 119.29.29.29 
-    "geo:cn": 
-      - https://223.5.5.5/dns-query
-      - https://doh.pub/dns-query
-      - 223.5.5.5 
-      - 119.29.29.29 
-    "geosite:gfw": 
-      - https://1.1.1.1/dns-query
-      - https://dns.google/dns-query
-      - 1.1.1.1
-      - 8.8.8.8
-    "geosite:geolocation-!cn": 
-      - https://1.1.1.1/dns-query
-      - https://dns.google/dns-query
-      - 1.1.1.1
-      - 8.8.8.8
-    "full-nameserver": 
-      - https://1.1.1.1/dns-query
-      - https://dns.google/dns-query
-      - 1.1.1.1
-      - 8.8.8.8
-  fallback:
-    - 1.1.1.1 
-    - 8.8.8.8 
-  proxy-server-nameserver:
-    - https://1.1.1.1/dns-query 
-    - https://dns.google/dns-query 
-    - 1.1.1.1
-    - 8.8.8.8
-# **控制面板**
-external-controller: 127.0.0.1:9090
-secret: "123465."
-external-ui: "./ui"
-external-ui-url: "https://github.com/Zephyruso/zashboard/releases/latest/download/dist.zip"
-# 核心配置
+# ================= 基础设置 =================
 port: 7890
-socks-port: 7891 
-redir-port: 7892 
-mixed-port: 7893 
+socks-port: 7891
+redir-port: 7892
+mixed-port: 7893
 tproxy-port: 7894
-allow-lan: true  
+allow-lan: true
 mode: rule
-bind-address: "*" 
+log-level: warning
 ipv6: true
-unified-delay: true  
-tcp-concurrent: true 
-log-level: warning 
-find-process-mode: "strict" 
-global-client-fingerprint: chrome 
-keep-alive-idle: 600
-keep-alive-interval: 15
-disable-keep-alive: false
+external-controller: 0.0.0.0:9090
+secret: ""
+external-ui: "ui"
+external-ui-url: "https://github.com/Zephyruso/zashboard/archive/refs/heads/gh-pages.zip"
+
 profile:
-  store-selected: true 
+  store-selected: true
   store-fake-ip: true
-# 流量嗅探配置
+
 sniffer:
   enable: true
   sniff:
@@ -109,48 +27,58 @@ sniffer:
       ports: [443, 8443]
     QUIC:
       ports: [443, 8443]
-  force-domain:
-    - "+.v2ex.com"
   skip-domain:
     - "+.baidu.com"
     - "+.919373.xyz"
-#TUN 配置 
+
 tun:
   enable: true
-  stack: mixed 
+  stack: mixed
   auto-route: true
   auto-redirect: true
   auto-detect-interface: true
-  strict-route: true 
-  dns-hijack:
-    - any:53
-    - tcp://any:53
-  mtu: 1500 
-  gso: true 
-  gso-max-size: 65536
-  udp-timeout: 300 
-# GEO 数据库配置 
-geodata-mode: true
-geodata-loader: memconservative
-geo-auto-update: true
-geo-update-interval: 48
-geox-url:
-  geoip: "https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geoip.dat"
-  geosite: "https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geosite.dat"
-  mmdb: "https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geoip.metadb"
+  dns-hijack: [any:53, tcp://any:53]
 
-# 锚点：通用分组模版 (精简引用)
-pg: &pg
-  type: select
-  proxies: [🚀 节点选择, 🛫 自动选择, 🇸🇬 新加坡自动, 🇸🇬 新加坡节点, 🇭🇰 香港自动, 🇭🇰 香港节点, 🇺🇸 美国自动, 🇺🇸 美国节点, 🇹🇼 台湾自动, 🇹🇼 台湾节点, 🇯🇵 日本自动, 🇯🇵 日本节点, 🇰🇷 韩国自动, 🇰🇷 韩国节点, DIRECTLY]
+# ================= DNS 设置 =================
+dns:
+  enable: true
+  ipv6: true
+  listen: 0.0.0.0:1053
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  fake-ip-filter:
+    - "rule-set:private_domain,cn_domain,apple_cn_domain"
+    - "geosite:connectivity-check"
+    - "geosite:private"
+    - "rule-set:fake_ip_filter_DustinWin"
+  nameserver:
+    - https://1.1.1.1/dns-query
+    - https://dns.google/dns-query
+    - 1.1.1.1
+    - 8.8.8.8
+  nameserver-policy:
+    "geosite:cn,private": [https://223.5.5.5/dns-query, https://doh.pub/dns-query]
+    "rule-set:cn_domain,private_domain": [https://223.5.5.5/dns-query, https://doh.pub/dns-query]
+
+# ================= 代理与订阅 =================
+proxy-providers:
+  Airport1:
+    url: "==MY_SUB_LINK=="
+    type: http
+    interval: 86400
+    health-check: {enable: true, url: https://cp.cloudflare.com/generate_204, interval: 600}
+
+proxies:
+  - {name: 🎯 Direct, type: direct, udp: true}
+
 # ================= 策略组 =================
 proxy-groups:
   # 1. 主入口
   - name: 🚀 节点选择
     type: select
-    proxies:
-      - 🛫 自动选择    
-      - ♿️ 手动选择    
+    proxies: 
+      - 🛫 自动选择
+      - ♿️ 手动选择
       - 🇸🇬 新加坡自动
       - 🇸🇬 新加坡节点
       - 🇭🇰 香港自动
@@ -163,34 +91,40 @@ proxy-groups:
       - 🇯🇵 日本节点
       - 🇰🇷 韩国自动
       - 🇰🇷 韩国节点
-      - DIRECTLY
+      - 🎯 Direct
 
-  # 2. 自动优选 (只测速各地区的自动组，高效)
+  # 2. 自动优选
   - name: 🛫 自动选择
     type: url-test
     url: https://cp.cloudflare.com/generate_204
     interval: 600
     tolerance: 100
-    proxies:
-      - 🇸🇬 新加坡自动
-      - 🇭🇰 香港自动
-      - 🇺🇸 美国自动
-      - 🇹🇼 台湾自动
-      - 🇯🇵 日本自动
-      - 🇰🇷 韩国自动
+    proxies: [🇸🇬 新加坡自动, 🇭🇰 香港自动, 🇺🇸 美国自动, 🇹🇼 台湾自动, 🇯🇵 日本自动, 🇰🇷 韩国自动]
 
-  # 3. 手动选择 (包含所有节点)
+  # 3. 手动选择
   - {name: ♿️ 手动选择, type: select, include-all: true}
 
   # 4. 应用分组
-  - {name: 📺 B站, type: select, proxies: [DIRECTLY, 🇭🇰 香港自动, 🇹🇼 台湾自动, 🚀 节点选择]}
+  - {name: 📺 B站, type: select, proxies: [🎯 Direct, 🇭🇰 香港自动, 🇹🇼 台湾自动, 🚀 节点选择]}
   - {name: 🤖 AI, type: select, proxies: [🇺🇸 美国自动, 🇸🇬 新加坡自动, 🇯🇵 日本自动, 🚀 节点选择]}
-  - {name: 🎬 油管, type: select, <<: *pg}
+  
+  - name: 🎬 油管
+    type: select
+    proxies: [🚀 节点选择, 🛫 自动选择, 🇸🇬 新加坡自动, 🇸🇬 新加坡节点, 🇭🇰 香港自动, 🇭🇰 香港节点, 🇺🇸 美国自动, 🇺🇸 美国节点, 🇹🇼 台湾自动, 🇹🇼 台湾节点, 🇯🇵 日本自动, 🇯🇵 日本节点, 🇰🇷 韩国自动, 🇰🇷 韩国节点, 🎯 Direct]
+
   - {name: 🎵 洋抖, type: select, proxies: [🇸🇬 新加坡自动, 🇺🇸 美国自动, 🇯🇵 日本自动, 🛫 自动选择, 🚀 节点选择]}
   - {name: 📲 电报, type: select, proxies: [🇸🇬 新加坡自动, 🛫 自动选择, 🚀 节点选择]}
-  - {name: ☁️ OneDrive, type: select, proxies: [DIRECTLY, 🚀 节点选择]}
+  - {name: ☁️ OneDrive, type: select, proxies: [🎯 Direct, 🚀 节点选择]}
+
+  # 5. 地区分组 - 自动
+  - {name: 🇭🇰 香港自动, type: url-test, include-all: true, tolerance: 100, interval: 600, filter: "(?i)香港|HKG"}
+  - {name: 🇹🇼 台湾自动, type: url-test, include-all: true, tolerance: 100, interval: 600, filter: "(?i)台|Taiwan|taiwan|TW"}
+  - {name: 🇯🇵 日本自动, type: url-test, include-all: true, tolerance: 100, interval: 600, filter: "(?i)日|东京|jp|japan"}
+  - {name: 🇸🇬 新加坡自动, type: url-test, include-all: true, tolerance: 100, interval: 600, filter: "(?i)新|SGW|SIN"}
+  - {name: 🇺🇸 美国自动, type: url-test, include-all: true, tolerance: 100, interval: 600, filter: "(?i)美|芝加哥|ORD"}
+  - {name: 🇰🇷 韩国自动, type: url-test, include-all: true, tolerance: 100, interval: 600, filter: "(?i)韩|首尔|春川|ICN"}
   
-  # 5. 地区 - 手动选择 (Select)
+  # 6. 地区分组 - 手动
   - {name: 🇭🇰 香港节点, type: select, include-all: true, filter: "(?i)香港|HKG"}
   - {name: 🇹🇼 台湾节点, type: select, include-all: true, filter: "(?i)台|Taiwan|taiwan|TW"}
   - {name: 🇯🇵 日本节点, type: select, include-all: true, filter: "(?i)日|东京|jp|japan"}
@@ -198,50 +132,41 @@ proxy-groups:
   - {name: 🇺🇸 美国节点, type: select, include-all: true, filter: "(?i)美|芝加哥|ORD"}
   - {name: 🇰🇷 韩国节点, type: select, include-all: true, filter: "(?i)韩|首尔|春川|ICN"}
   - {name: 🏳️‍🌈 其他地区, type: select, include-all: true, filter: "(?i)^(?!.*(香港|HKG|台|Taiwan|taiwan|TW|日|东京|jp|japan|新|SGW|SIN|美|芝加哥|ORD|韩|首尔|春川|ICN)).*"}
-  # 6. 地区 - 自动测速 (Url-Test)
-  - {name: 🇭🇰 香港自动, type: url-test, include-all: true, tolerance: 100, interval: 600, filter: "(?i)香港|HKG"}
-  - {name: 🇹🇼 台湾自动, type: url-test, include-all: true, tolerance: 100, interval: 600, filter: "(?i)台|Taiwan|taiwan|TW"}
-  - {name: 🇯🇵 日本自动, type: url-test, include-all: true, tolerance: 100, interval: 600, filter: "(?i)日|东京|jp|japan"}
-  - {name: 🇸🇬 新加坡自动, type: url-test, include-all: true, tolerance: 100, interval: 600, filter: "(?i)新|SGW|SIN"}
-  - {name: 🇺🇸 美国自动, type: url-test, include-all: true, tolerance: 100, interval: 600, filter: "(?i)美|芝加哥|ORD"}
-  - {name: 🇰🇷 韩国自动, type: url-test, include-all: true, tolerance: 100, interval: 600, filter: "(?i)韩|首尔|春川|ICN"}
 
-  # 7. 其他与兜底
-  - {name: 🐟 漏网之鱼, type: select, <<: *pg}
-  - {name: 🛑 广告拦截, type: select, proxies: [REJECT, DIRECTLY]}
+  # 7. 其他
+  - {name: 🎯 Direct, type: select, proxies: [DIRECT, 🚀 节点选择]}
+  
+  - name: 🐟 漏网之鱼
+    type: select
+    proxies: [🚀 节点选择, 🛫 自动选择, 🇸🇬 新加坡自动, 🇸🇬 新加坡节点, 🇭🇰 香港自动, 🇭🇰 香港节点, 🇺🇸 美国自动, 🇺🇸 美国节点, 🇹🇼 台湾自动, 🇹🇼 台湾节点, 🇯🇵 日本自动, 🇯🇵 日本节点, 🇰🇷 韩国自动, 🇰🇷 韩国节点, 🎯 Direct]
+
+  - {name: 🛑 广告拦截, type: select, proxies: [REJECT, 🎯 Direct]}
 
 # ================= 规则 =================
 rules:
-  # 广告与隐私
   - RULE-SET,AWAvenue_Ads_Rule,🛑 广告拦截
   
-  # 直连规则 (高优)
-  - RULE-SET,private_domain,DIRECTLY
-  - RULE-SET,cn_domain,DIRECTLY
-  - RULE-SET,cn_ip,DIRECTLY,no-resolve
-  - RULE-SET,apple_cn_domain,DIRECTLY
-  - DOMAIN-SUFFIX,cn,DIRECTLY
+  - RULE-SET,private_domain,🎯 Direct
+  - RULE-SET,cn_domain,🎯 Direct
+  - RULE-SET,cn_ip,🎯 Direct,no-resolve
+  - RULE-SET,apple_cn_domain,🎯 Direct
+  - DOMAIN-SUFFIX,cn,🎯 Direct
 
-  # 特殊应用
   - RULE-SET,bilibili_domain,📺 B站
   - RULE-SET,ai,🤖 AI
   - RULE-SET,youtube_domain,🎬 油管
   - RULE-SET,tiktok_domain,🎵 洋抖
   - RULE-SET,onedrive_domain,☁️ OneDrive
-  
-  # Telegram (防DNS泄露)
   - RULE-SET,telegram_ip,📲 电报,no-resolve
   - RULE-SET,telegram_domain,📲 电报
 
-  # 通用代理
   - RULE-SET,gfw_domain,🚀 节点选择
   - RULE-SET,geolocation-!cn,🚀 节点选择
   - RULE-SET,proxy,🚀 节点选择
   
-  # 兜底
   - MATCH,🐟 漏网之鱼
 
-# ================= 规则集合 =================
+# ================= 规则集提供者 =================
 rule-anchor:
   domain: &domain { type: http, interval: 86400, behavior: domain, format: mrs }
   ip: &ip { type: http, interval: 86400, behavior: ipcidr, format: mrs }
