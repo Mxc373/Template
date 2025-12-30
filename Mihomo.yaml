@@ -130,7 +130,7 @@ proxy-groups:
 rules:
 # 1. 广告拦截
   - RULE-SET,AWAvenue_Ads_Rule,🛑 广告拦截
-
+  - DST-PORT,22,🎯 Direct
 # 2. B站港澳台番剧
   # 强制视频流直连 (省流量、速度快)
   # 这些域名承载了绝大部分流量
@@ -204,3 +204,4 @@ rule-providers:
   geoip-google: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/google.mrs", path: ./rules/geoip-google.mrs }
   
   fake_ip_filter_DustinWin: { <<: *domain, url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/fakeip-filter.mrs", path: ./ruleset/fakeip.mrs }
+
