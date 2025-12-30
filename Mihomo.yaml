@@ -81,7 +81,7 @@ proxy-groups:
       - 🇸🇬 新加坡
       - 🇭🇰 香港
       - 🇺🇸 美国
-      - 🇹🇼 台湾
+      - 🇨🇳 台湾
       - 🇯🇵 日本
       - 🇰🇷 韩国
       - 🌐 其他地区
@@ -92,37 +92,37 @@ proxy-groups:
     url: https://cp.cloudflare.com/generate_204
     interval: 600
     tolerance: 100
-    proxies: [🇸🇬 新加坡, 🇭🇰 香港, 🇺🇸 美国, 🇹🇼 台湾, 🇯🇵 日本, 🇰🇷 韩国]
+    proxies: [🇸🇬 新加坡, 🇭🇰 香港, 🇺🇸 美国, 🇨🇳 台湾, 🇯🇵 日本, 🇰🇷 韩国]
 
   # 3. 手动选择
   - {name: ♿️ 手动选择, type: select, include-all: true}
 
   # 4. 应用分组
-  - {name: 📺 B站, type: select, proxies: [🇭🇰 香港, 🎯 Direct, 🚀 节点选择, 🇹🇼 台湾]}
+  - {name: 📺 B站, type: select, proxies: [🇭🇰 香港, 🎯 Direct, 🚀 节点选择, 🇨🇳 台湾]}
   - {name: 🤖 AI, type: select, proxies: [🇺🇸 美国, 🇸🇬 新加坡, 🇯🇵 日本, 🚀 节点选择]}
   
   - name: 🎬 油管
     type: select
-    proxies: [🚀 节点选择, 🛫 自动选择, ♿️ 手动选择, 🇸🇬 新加坡, 🇭🇰 香港, 🇺🇸 美国, 🇹🇼 台湾, 🇯🇵 日本, 🇰🇷 韩国, 🌐 其他地区]
+    proxies: [🚀 节点选择, 🛫 自动选择, ♿️ 手动选择, 🇸🇬 新加坡, 🇭🇰 香港, 🇺🇸 美国, 🇨🇳 台湾, 🇯🇵 日本, 🇰🇷 韩国, 🌐 其他地区]
 
   - {name: 🎵 洋抖, type: select, proxies: [🇯🇵 日本, 🇺🇸 美国, 🇸🇬 新加坡,♿️ 手动选择, 🚀 节点选择]}
   - {name: ☁️ OneDrive, type: select, proxies: [🎯 Direct, 🚀 节点选择]}
   
   # 5. 地区分组 - 自动
-  - {name: 🇭🇰 香港, type: select, include-all: true, filter: "(?i)香港|HKG"}
-  - {name: 🇹🇼 台湾, type: select, include-all: true, filter: "(?i)台|Taiwan|taiwan|TW"}
-  - {name: 🇯🇵 日本, type: select, include-all: true, filter: "(?i)日|东京|jp|japan"}
-  - {name: 🇸🇬 新加坡, type: select, include-all: true, filter: "(?i)新|SGW|SIN"}
-  - {name: 🇺🇸 美国, type: select, include-all: true, filter: "(?i)美|芝加哥|ORD"}
-  - {name: 🇰🇷 韩国, type: select, include-all: true, filter: "(?i)韩|首尔|春川|ICN"}
-  - {name: 🌐 其他地区, type: select, include-all: true, filter: "(?i)^(?!.*(香港|HKG|台|Taiwan|taiwan|TW|日|东京|jp|japan|新|SGW|SIN|美|芝加哥|ORD|韩|首尔|春川|ICN)).*"}
+  - {name: 🇭🇰 香港, type: select, include-all: true, filter: "(?i)🇭🇰"}
+  - {name: 🇨🇳 台湾, type: select, include-all: true, filter: "(?i)🇨🇳"}
+  - {name: 🇯🇵 日本, type: select, include-all: true, filter: "(?i)🇯🇵"}
+  - {name: 🇸🇬 新加坡, type: select, include-all: true, filter: "(?i)🇸🇬"}
+  - {name: 🇺🇸 美国, type: select, include-all: true, filter: "(?i)🇺🇸"}
+  - {name: 🇰🇷 韩国, type: select, include-all: true, filter: "(?i)🇰🇷"}
+  - {name: 🌐 其他地区, type: select, include-all: true, filter: "(?i)^(?!.*(🇭🇰|🇨🇳|🇯🇵|🇸🇬|🇺🇸|🇰🇷)).*"}
 
   # 6. 其他
   - {name: 🎯 Direct, type: select, proxies: [DIRECT, 🚀 节点选择]}
   
   - name: 🐟 漏网之鱼
     type: select
-    proxies: [🚀 节点选择, 🛫 自动选择, ♿️ 手动选择, 🇸🇬 新加坡, 🇭🇰 香港, 🇺🇸 美国, 🇹🇼 台湾, 🇯🇵 日本, 🇰🇷 韩国, 🌐 其他地区, 🎯 Direct]
+    proxies: [🚀 节点选择, 🛫 自动选择, ♿️ 手动选择, 🇸🇬 新加坡, 🇭🇰 香港, 🇺🇸 美国, 🇨🇳 台湾, 🇯🇵 日本, 🇰🇷 韩国, 🌐 其他地区, 🎯 Direct]
 
   - {name: 🛑 广告拦截, type: select, proxies: [REJECT, 🎯 Direct]}
 
