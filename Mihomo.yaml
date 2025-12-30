@@ -109,13 +109,13 @@ proxy-groups:
   - {name: ☁️ OneDrive, type: select, proxies: [🎯 Direct, 🚀 节点选择]}
   
   # 5. 地区分组 - 自动
-  - {name: 🇭🇰 香港, type: select, include-all: true, filter: "(?i)🇭🇰"}
-  - {name: 🇨🇳 台湾, type: select, include-all: true, filter: "(?i)🇨🇳"}
-  - {name: 🇯🇵 日本, type: select, include-all: true, filter: "(?i)🇯🇵"}
-  - {name: 🇸🇬 新加坡, type: select, include-all: true, filter: "(?i)🇸🇬"}
-  - {name: 🇺🇸 美国, type: select, include-all: true, filter: "(?i)🇺🇸"}
-  - {name: 🇰🇷 韩国, type: select, include-all: true, filter: "(?i)🇰🇷"}
-  - {name: 🌐 其他地区, type: select, include-all: true, filter: "(?i)^(?!.*(🇭🇰|🇨🇳|🇯🇵|🇸🇬|🇺🇸|🇰🇷)).*"}
+  - {name: 🇭🇰 香港, type: select, include-all: true, filter: "(?i)🇭🇰|香港"}
+  - {name: 🇨🇳 台湾, type: select, include-all: true, filter: "(?i)🇨🇳|台湾"}
+  - {name: 🇯🇵 日本, type: select, include-all: true, filter: "(?i)🇯🇵|日本"}
+  - {name: 🇸🇬 新加坡, type: select, include-all: true, filter: "(?i)🇸🇬|新加坡"}
+  - {name: 🇺🇸 美国, type: select, include-all: true, filter: "(?i)🇺🇸|美国"}
+  - {name: 🇰🇷 韩国, type: select, include-all: true, filter: "(?i)🇰🇷|韩国"}
+  - {name: 🌐 其他地区, type: select, include-all: true, filter: "(?i)^(?!.*(🇭🇰|🇨🇳|🇯🇵|🇸🇬|🇺🇸|🇰🇷|韩国|美国|新加坡|日本|台湾|香港)).*"}
 
   # 6. 其他
   - {name: 🎯 Direct, type: select, proxies: [DIRECT, 🚀 节点选择]}
