@@ -481,7 +481,10 @@
   },
   "experimental": {
     "cache_file": {
-      "enabled": true
+      "enabled": true,
+      "path": "cache.db",
+      "store_fakeip": true
     }
   }
 }
+
