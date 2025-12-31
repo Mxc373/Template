@@ -403,7 +403,7 @@
     "rules": [
       {
         "protocol": "dns",
-        "action": "hijack_dns"
+        "action": "hijack-dns"
       },
       {
         "rule_set": [
@@ -507,3 +507,4 @@
     }
   }
 }
+
