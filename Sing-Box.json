@@ -179,51 +179,33 @@
     },
     {
       "tag": "🇭🇰 香港",
-      "type": "urltest",
-      "outbounds": [],
-      "url": "https://cp.cloudflare.com/generate_204",
-      "interval": "10m",
-      "tolerance": 50
+      "type": "selector",
+      "outbounds": []
     },
     {
       "tag": "🇨🇳 台湾",
-      "type": "urltest",
-      "outbounds": [],
-      "url": "https://cp.cloudflare.com/generate_204",
-      "interval": "10m",
-      "tolerance": 50
+      "type": "selector",
+      "outbounds": []
     },
     {
       "tag": "🇯🇵 日本",
-      "type": "urltest",
-      "outbounds": [],
-      "url": "https://cp.cloudflare.com/generate_204",
-      "interval": "10m",
-      "tolerance": 50
+      "type": "selector",
+      "outbounds": []
     },
     {
       "tag": "🇸🇬 新加坡",
-      "type": "urltest",
-      "outbounds": [],
-      "url": "https://cp.cloudflare.com/generate_204",
-      "interval": "10m",
-      "tolerance": 50
+      "type": "selector",
+      "outbounds": []
     },
     {
       "tag": "🇺🇸 美国",
-      "type": "urltest",
-      "outbounds": [],
-      "url": "https://cp.cloudflare.com/generate_204",
-      "interval": "10m",
-      "tolerance": 50
+      "type": "selector",
+      "outbounds": []
     },
     {
       "tag": "🇰🇷 韩国",
-      "type": "urltest",
-      "outbounds": [],
-      "url": "https://cp.cloudflare.com/generate_204",
-      "interval": "10m",
-      "tolerance": 50
+      "type": "selector",
+      "outbounds": []
     },
     {
       "tag": "🌐 其他地区",
