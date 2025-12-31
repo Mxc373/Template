@@ -391,12 +391,6 @@
         "type": "remote",
         "format": "binary",
         "url": "https://raw.githubusercontent.com/DustinWin/ruleset_geodata/sing-box-ruleset/proxy.srs"
-      },
-      {
-        "tag": "AWAvenue_Ads_Rule",
-        "type": "remote",
-        "format": "source",
-        "url": "https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main//Filters/AWAvenue-Ads-Rule-Clash.yaml"
       }
     ],
     "rules": [
@@ -406,8 +400,7 @@
       },
       {
         "rule_set": [
-          "geosite-category-ads-all",
-          "AWAvenue_Ads_Rule"
+          "geosite-category-ads-all"
         ],
         "outbound": "🛑 广告拦截"
       },
