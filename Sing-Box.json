@@ -445,8 +445,7 @@
           "geosite-telegram",
           "geoip-telegram"
         ],
-        "outbound": "🚀 节点选择",
-        "skip_resolve": true
+        "outbound": "🚀 节点选择"
       },
       {
         "rule_set": "geosite-openai",
@@ -502,3 +501,4 @@
     }
   }
 }
+
