@@ -23,7 +23,9 @@
     ],
     "rules": [
       {
-        "outbound": "any",
+        "outbound": [
+          "any"
+        ],
         "server": "local"
       },
       {
@@ -48,18 +50,21 @@
     "disable_cache": false,
     "disable_expire": false,
     "independent_cache": true,
-    "fakeip": {
-      "enabled": true,
-      "inet4_range": "198.18.0.0/16",
-      "inet6_range": "fc00::/18"
-    }
+    "fake_ip_range": "198.18.0.0/16",
+    "fake_ip_filter": [
+      "rule-set:geosite-cn",
+      "rule-set:geosite-private",
+      "rule-set:geosite-apple-cn"
+    ]
   },
   "inbounds": [
     {
       "type": "tun",
       "tag": "tun-in",
       "interface_name": "tun0",
-      "inet4_address": "172.19.0.1/30",
+      "inet4_address": [
+        "172.19.0.1/30"
+      ],
       "auto_route": true,
       "strict_route": true,
       "stack": "mixed",
@@ -253,7 +258,7 @@
       "tag": "🛑 广告拦截",
       "type": "selector",
       "outbounds": [
-        "block",
+        "REJECT",
         "🎯 Direct"
       ]
     },
@@ -262,15 +267,12 @@
       "type": "direct"
     },
     {
-      "tag": "block",
+      "tag": "REJECT",
       "type": "block"
-    },
-    {
-      "tag": "dns-out",
-      "type": "dns"
     }
   ],
   "route": {
+    "default_domain_resolver": "local",
     "rule_set": [
       {
         "tag": "geosite-category-ads-all",
@@ -351,6 +353,12 @@
         "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/geolocation-!cn.srs"
       },
       {
+        "tag": "proxy",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/DustinWin/ruleset_geodata/sing-box-ruleset/proxy.srs"
+      },
+      {
         "tag": "geosite-netflix",
         "type": "remote",
         "format": "binary",
@@ -385,24 +393,18 @@
         "type": "remote",
         "format": "binary",
         "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/telegram.srs"
-      },
-      {
-        "tag": "proxy",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://raw.githubusercontent.com/DustinWin/ruleset_geodata/sing-box-ruleset/proxy.srs"
       }
     ],
     "rules": [
       {
         "protocol": "dns",
-        "outbound": "dns-out"
+        "action": "hijack_dns"
       },
       {
         "rule_set": [
           "geosite-category-ads-all"
         ],
-        "outbound": "🛑 广告拦截"
+        "action": "reject"
       },
       {
         "port": 22,
