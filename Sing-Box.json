@@ -2,7 +2,7 @@
   "log": {
     "level": "warn",
     "timestamp": true
-  },
+    },
   "dns": {
     "servers": [
       {
@@ -409,13 +409,20 @@
         "domain_suffix": [
           "bilivideo.com",
           "bilivideo.cn",
-          "bilivideo.net",
-          "hdslb.com"
+          "hdslb.com",
+          "szbdyd.com"
         ],
         "outbound": "🎯 Direct"
       },
       {
-        "domain_keyword": "bilibili",
+        "domain": [
+          "api.bilibili.com",
+          "app.bilibili.com",
+          "bangumi.bilibili.com",
+          "interface.bilibili.com",
+          "api.live.bilibili.com",
+          "vc.bilibili.com"
+        ],
         "outbound": "📺 B站"
       },
       {
