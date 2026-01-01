@@ -2,7 +2,7 @@
   "log": {
     "level": "warn",
     "timestamp": true
-    },
+  },
   "dns": {
     "servers": [
       {
@@ -406,24 +406,17 @@
         "outbound": "🚀 节点选择"
       },
       {
-        "domain": [
-          "api.bilibili.com",
-          "app.bilibili.com",
-          "bangumi.bilibili.com",
-          "interface.bilibili.com",
-          "api.live.bilibili.com",
-          "vc.bilibili.com"
-        ],
-        "outbound": "📺 B站"
-      },
-      {
         "domain_suffix": [
           "bilivideo.com",
           "bilivideo.cn",
-          "hdslb.com",
-          "szbdyd.com"
+          "bilivideo.net",
+          "hdslb.com"
         ],
         "outbound": "🎯 Direct"
+      },
+      {
+        "domain_keyword": "bilibili",
+        "outbound": "📺 B站"
       },
       {
         "rule_set": "geosite-bilibili",
