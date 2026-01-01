@@ -386,6 +386,16 @@
         "action": "reject"
       },
       {
+        "protocol": "quic",
+        "port": 443,
+        "domain_suffix": [
+          "google.com",
+          "googleapis.com",
+          "gstatic.com"
+        ],
+        "outbound": "REJECT"
+      },
+      {
         "port": 22,
         "outbound": "🎯 Direct"
       },
@@ -432,6 +442,19 @@
       {
         "rule_set": "geosite-epicgames",
         "outbound": "🚀 节点选择"
+      },
+      {
+        "domain_suffix": [
+          "bard.google.com",
+          "gemini.google.com",
+          "ai.google.dev",
+          "generativelanguage.googleapis.com",
+          "proactivebackend-pa.googleapis.com",
+          "alkalimakersuite-pa.clients6.google.com",
+          "makersuite.google.com",
+          "aistudio.google.com"
+        ],
+        "outbound": "🔬 AI"
       },
       {
         "domain_suffix": [
@@ -506,4 +529,3 @@
     }
   }
 }
-
