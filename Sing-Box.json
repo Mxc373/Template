@@ -396,6 +396,12 @@
         "outbound": "REJECT"
       },
       {
+        "domain_suffix": [
+            "googleapis.cn"
+        ],
+        "outbound": "🚀 节点选择"
+      },
+      {
         "port": 22,
         "outbound": "🎯 Direct"
       },
