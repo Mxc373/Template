@@ -2,7 +2,7 @@
   "log": {
     "level": "warn",
     "timestamp": true
-    },
+  },
   "dns": {
     "servers": [
       {
@@ -31,6 +31,23 @@
         ],
         "action": "reject",
         "method": "default"
+      },
+      {
+        "domain_suffix": [
+          "bilivideo.com",
+          "bilivideo.cn",
+          "bilivideo.net",
+          "hdslb.com"
+        ],
+        "server": "local"
+      },
+      {
+        "rule_set": "geosite-bilibili",
+        "server": "fakeip"
+      },
+      {
+        "domain_keyword": "bilibili",
+        "server": "fakeip"
       },
       {
         "rule_set": [
