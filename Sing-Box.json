@@ -2,7 +2,7 @@
   "log": {
     "level": "warn",
     "timestamp": true
-  },
+    },
   "dns": {
     "servers": [
       {
@@ -35,8 +35,7 @@
       {
         "rule_set": [
           "geosite-cn",
-          "geosite-private",
-          "geosite-apple-cn"
+          "geosite-private"
         ],
         "server": "local"
       },
@@ -133,7 +132,7 @@
       ]
     },
     {
-      "tag": "🤖 AI",
+      "tag": "🔬 AI",
       "type": "selector",
       "outbounds": [
         "🇺🇸 美国",
@@ -166,14 +165,6 @@
         "🇺🇸 美国",
         "🇸🇬 新加坡",
         "♿️ 手动选择",
-        "🚀 节点选择"
-      ]
-    },
-    {
-      "tag": "☁️ OneDrive",
-      "type": "selector",
-      "outbounds": [
-        "🎯 Direct",
         "🚀 节点选择"
       ]
     },
@@ -282,6 +273,18 @@
         "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/apple-cn.srs"
       },
       {
+        "tag": "geosite-steam",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/steam.srs"
+      },
+      {
+        "tag": "geosite-epicgames",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/epicgames.srs"
+      },
+      {
         "tag": "geosite-bilibili",
         "type": "remote",
         "format": "binary",
@@ -312,16 +315,16 @@
         "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/tiktok.srs"
       },
       {
-        "tag": "geosite-onedrive",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/onedrive.srs"
-      },
-      {
         "tag": "geosite-telegram",
         "type": "remote",
         "format": "binary",
         "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/telegram.srs"
+      },
+      {
+        "tag": "geosite-onedrive",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/onedrive.srs"
       },
       {
         "tag": "geosite-gfw",
@@ -342,18 +345,6 @@
         "url": "https://raw.githubusercontent.com/DustinWin/ruleset_geodata/sing-box-ruleset/proxy.srs"
       },
       {
-        "tag": "geosite-netflix",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/netflix.srs"
-      },
-      {
-        "tag": "geosite-steam",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/steam.srs"
-      },
-      {
         "tag": "geoip-cn",
         "type": "remote",
         "format": "binary",
@@ -364,12 +355,6 @@
         "type": "remote",
         "format": "binary",
         "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/google.srs"
-      },
-      {
-        "tag": "geoip-netflix",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/netflix.srs"
       },
       {
         "tag": "geoip-telegram",
@@ -390,17 +375,35 @@
         "action": "reject"
       },
       {
-        "port": 22,
-        "outbound": "🎯 Direct"
+        "port": 3478,
+        "outbound": "🚀 节点选择"
+      },
+      {
+        "domain_keyword": [
+          "stun",
+          "browserleaks",
+          "ipleak",
+          "whoer"
+        ],
+        "outbound": "🚀 节点选择"
       },
       {
         "domain_suffix": [
-          "bilivideo.com",
-          "bilivideo.cn",
-          "hdslb.com",
-          "szbdyd.com"
+          "steamcontent.com",
+          "steamserver.net",
+          "steamcdn-a.akamaihd.net",
+          "download.epicgames.com",
+          "cdn.epicgames.com"
         ],
         "outbound": "🎯 Direct"
+      },
+      {
+        "rule_set": "geosite-steam",
+        "outbound": "🚀 节点选择"
+      },
+      {
+        "rule_set": "geosite-epicgames",
+        "outbound": "🚀 节点选择"
       },
       {
         "domain": [
@@ -414,8 +417,38 @@
         "outbound": "📺 B站"
       },
       {
+        "domain_suffix": [
+          "bilivideo.com",
+          "bilivideo.cn",
+          "hdslb.com",
+          "szbdyd.com"
+        ],
+        "outbound": "🎯 Direct"
+      },
+      {
         "rule_set": "geosite-bilibili",
         "outbound": "📺 B站"
+      },
+      {
+        "domain_suffix": [
+          "bard.google.com",
+          "gemini.google.com",
+          "ai.google.dev",
+          "generativelanguage.googleapis.com"
+        ],
+        "outbound": "🔬 AI"
+      },
+      {
+        "rule_set": "geosite-openai",
+        "outbound": "🔬 AI"
+      },
+      {
+        "rule_set": "geosite-youtube",
+        "outbound": "🎬 油管"
+      },
+      {
+        "rule_set": "geosite-tiktok",
+        "outbound": "🎵 洋抖"
       },
       {
         "rule_set": [
@@ -432,32 +465,10 @@
         "outbound": "🚀 节点选择"
       },
       {
-        "rule_set": "geosite-openai",
-        "outbound": "🤖 AI"
-      },
-      {
-        "rule_set": "geosite-youtube",
-        "outbound": "🎬 油管"
-      },
-      {
-        "rule_set": "geosite-tiktok",
-        "outbound": "🎵 洋抖"
-      },
-      {
-        "rule_set": "geosite-onedrive",
-        "outbound": "☁️ OneDrive"
-      },
-      {
-        "rule_set": [
-          "geosite-netflix",
-          "geoip-netflix"
-        ],
-        "outbound": "🚀 节点选择"
-      },
-      {
         "rule_set": [
           "geosite-cn",
           "geosite-private",
+          "geosite-onedrive",
           "geosite-apple-cn",
           "geoip-cn"
         ],
@@ -465,6 +476,10 @@
       },
       {
         "domain_suffix": ".cn",
+        "outbound": "🎯 Direct"
+      },
+      {
+        "port": 22,
         "outbound": "🎯 Direct"
       },
       {
@@ -483,8 +498,8 @@
     "cache_file": {
       "enabled": true,
       "path": "cache.db",
-      "store_fakeip": true
+      "store_fakeip": true,
+      "store_rdrc": true
     }
   }
 }
-
