@@ -45,7 +45,7 @@ dns:
   enhanced-mode: fake-ip
   fake-ip-range: 198.18.0.1/16
   fake-ip-filter:
-    - "rule-set:private_domain,cn_domain,apple_cn_domain"
+    - "rule-set:private_domain,cn_domain"
     - "geosite:connectivity-check"
     - "geosite:private"
     - "rule-set:fake_ip_filter_DustinWin"
@@ -156,7 +156,6 @@ rules:
   - RULE-SET,private_domain,🎯 Direct
   - RULE-SET,cn_domain,🎯 Direct
   - RULE-SET,cn_ip,🎯 Direct,no-resolve
-  - RULE-SET,apple_cn_domain,🎯 Direct
   - DOMAIN-SUFFIX,cn,🎯 Direct
 
   - RULE-SET,gfw_domain,🚀 节点选择
@@ -175,8 +174,7 @@ rule-providers:
   private_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.mrs", path: ./ruleset/private.mrs }
   cn_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs", path: ./ruleset/cn_domain.mrs }
   cn_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.mrs", path: ./ruleset/cn_ip.mrs }
-  apple_cn_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/apple-cn.mrs", path: ./ruleset/apple_cn.mrs }
-
+  
   steam_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/steam.mrs", path: ./ruleset/steam.mrs }
   epicgames_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/epicgames.mrs", path: ./ruleset/epicgames.mrs }
 
