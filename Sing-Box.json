@@ -284,12 +284,6 @@
         "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/private.srs"
       },
       {
-        "tag": "geosite-apple-cn",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/apple-cn.srs"
-      },
-      {
         "tag": "geosite-steam",
         "type": "remote",
         "format": "binary",
@@ -392,8 +386,8 @@
         "action": "reject"
       },
       {
-        "port": 3478,
-        "outbound": "🚀 节点选择"
+        "port": 22,
+        "outbound": "🎯 Direct"
       },
       {
         "domain_keyword": [
@@ -406,6 +400,15 @@
       },
       {
         "domain_suffix": [
+          "bilivideo.com",
+          "bilivideo.cn",
+          "bilivideo.net",
+          "hdslb.com"
+        ],
+        "outbound": "🎯 Direct"
+      },
+      {
+        "domain_suffix": [
           "steamcontent.com",
           "steamserver.net",
           "steamcdn-a.akamaihd.net",
@@ -415,36 +418,20 @@
         "outbound": "🎯 Direct"
       },
       {
+        "domain_keyword": "bilibili",
+        "outbound": "📺 B站"
+      },
+      {
+        "rule_set": "geosite-bilibili",
+        "outbound": "📺 B站"
+      },
+      {
         "rule_set": "geosite-steam",
         "outbound": "🚀 节点选择"
       },
       {
         "rule_set": "geosite-epicgames",
         "outbound": "🚀 节点选择"
-      },
-      {
-        "domain_suffix": [
-          "bilivideo.com",
-          "bilivideo.cn",
-          "hdslb.com",
-          "szbdyd.com"
-        ],
-        "outbound": "🎯 Direct"
-      },
-      {
-        "domain": [
-          "api.bilibili.com",
-          "app.bilibili.com",
-          "bangumi.bilibili.com",
-          "interface.bilibili.com",
-          "api.live.bilibili.com",
-          "vc.bilibili.com"
-        ],
-        "outbound": "📺 B站"
-      },
-      {
-        "rule_set": "geosite-bilibili",
-        "outbound": "📺 B站"
       },
       {
         "domain_suffix": [
@@ -469,15 +456,15 @@
       },
       {
         "rule_set": [
-          "geosite-google",
-          "geoip-google"
+          "geosite-telegram",
+          "geoip-telegram"
         ],
         "outbound": "🚀 节点选择"
       },
       {
         "rule_set": [
-          "geosite-telegram",
-          "geoip-telegram"
+          "geosite-google",
+          "geoip-google"
         ],
         "outbound": "🚀 节点选择"
       },
@@ -486,7 +473,6 @@
           "geosite-cn",
           "geosite-private",
           "geosite-onedrive",
-          "geosite-apple-cn",
           "geoip-cn"
         ],
         "outbound": "🎯 Direct"
@@ -496,8 +482,8 @@
         "outbound": "🎯 Direct"
       },
       {
-        "port": 22,
-        "outbound": "🎯 Direct"
+        "port": 3478,
+        "outbound": "🚀 节点选择"
       },
       {
         "rule_set": [
