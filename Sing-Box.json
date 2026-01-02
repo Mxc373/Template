@@ -320,6 +320,18 @@
         "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/google.srs"
       },
       {
+        "tag": "geosite-spotify",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/spotify.srs"
+      },
+      {
+        "tag": "geosite-google",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/google.srs"
+      },
+      {
         "tag": "geosite-tiktok",
         "type": "remote",
         "format": "binary",
@@ -482,6 +494,10 @@
       {
         "rule_set": "geosite-tiktok",
         "outbound": "🎵 洋抖"
+      },
+      {
+        "rule_set": "geosite-spotify",
+        "outbound": "🇭🇰 香港"
       },
       {
         "rule_set": [
