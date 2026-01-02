@@ -147,6 +147,7 @@ rules:
   - RULE-SET,ai,🔬 AI
   - RULE-SET,youtube_domain,🎬 油管
   - RULE-SET,tiktok_domain,🎵 洋抖
+  - RULE-SET,spotify_domain, 🇭🇰 香港
   - RULE-SET,onedrive_domain,🎯 Direct
 
   - RULE-SET,google,🚀 节点选择
@@ -183,6 +184,7 @@ rule-providers:
   ai: { <<: *domain, url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/ai.mrs", path: ./ruleset/ai.mrs }
   youtube_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/youtube.mrs", path: ./ruleset/youtube.mrs }
   tiktok_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/tiktok.mrs", path: ./ruleset/tiktok.mrs }
+  spotify_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/spotify.mrs", path: ./ruleset/spotify.mrs }
   onedrive_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/onedrive.mrs", path: ./ruleset/onedrive.mrs }
   telegram_domain: { <<: *yaml, url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Telegram/Telegram.yaml", path: ./ruleset/telegram.yaml }
   telegram_ip: { <<: *ip, url: "https://github.com/DustinWin/ruleset_geodata/raw/refs/heads/mihomo-ruleset/telegramip.mrs", path: ./ruleset/telegramip.mrs }
@@ -194,4 +196,3 @@ rule-providers:
   geoip-google: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/google.mrs", path: ./rules/geoip-google.mrs }
   
   fake_ip_filter_DustinWin: { <<: *domain, url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/fakeip-filter.mrs", path: ./ruleset/fakeip.mrs }
-
