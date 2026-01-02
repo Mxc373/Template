@@ -117,6 +117,7 @@ proxy-groups:
 rules:
   - RULE-SET,AWAvenue_Ads_Rule,🛑 广告拦截
   - DST-PORT,22,🎯 Direct
+  - AND,((NETWORK,UDP),(DST-PORT,443),(RULE-SET,google)),REJECT
 
   - DOMAIN-SUFFIX,steamcontent.com,🎯 Direct
   - DOMAIN-SUFFIX,steamserver.net,🎯 Direct
@@ -141,17 +142,17 @@ rules:
   
   - DOMAIN-SUFFIX,bard.google.com,🔬 AI
   - DOMAIN-SUFFIX,gemini.google.com,🔬 AI
-  - DOMAIN-SUFFIX,ai.google.dev,🔬 AI
-  
-  - RULE-SET,google,🚀 节点选择
-  - RULE-SET,geoip-google,🚀 节点选择
-  - RULE-SET,telegram_ip,🚀 节点选择,no-resolve
-  - RULE-SET,telegram_domain,🚀 节点选择
+  - DOMAIN-SUFFIX,ai.google.dev,🔬 ai
 
   - RULE-SET,ai,🔬 AI
   - RULE-SET,youtube_domain,🎬 油管
   - RULE-SET,tiktok_domain,🎵 洋抖
   - RULE-SET,onedrive_domain,🎯 Direct
+
+  - RULE-SET,google,🚀 节点选择
+  - RULE-SET,geoip-google,🚀 节点选择
+  - RULE-SET,telegram_ip,🚀 节点选择,no-resolve
+  - RULE-SET,telegram_domain,🚀 节点选择
 
   - RULE-SET,private_domain,🎯 Direct
   - RULE-SET,cn_domain,🎯 Direct
