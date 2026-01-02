@@ -142,7 +142,7 @@ rules:
   
   - DOMAIN-SUFFIX,bard.google.com,🔬 AI
   - DOMAIN-SUFFIX,gemini.google.com,🔬 AI
-  - DOMAIN-SUFFIX,ai.google.dev,🔬 ai
+  - DOMAIN-SUFFIX,ai.google.dev,🔬 AI
 
   - RULE-SET,ai,🔬 AI
   - RULE-SET,youtube_domain,🎬 油管
@@ -194,3 +194,4 @@ rule-providers:
   geoip-google: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/google.mrs", path: ./rules/geoip-google.mrs }
   
   fake_ip_filter_DustinWin: { <<: *domain, url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/fakeip-filter.mrs", path: ./ruleset/fakeip.mrs }
+
