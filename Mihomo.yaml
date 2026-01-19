@@ -59,79 +59,158 @@ dns:
     "rule-set:cn_domain,private_domain": [https://223.5.5.5/dns-query, https://doh.pub/dns-query]
 
 proxy-providers:
-  Airport1:
+  Core:
     url: "==MY_SUB_LINK=="
     type: http
     interval: 86400
     health-check: {enable: true, url: https://cp.cloudflare.com/generate_204, interval: 600}
-    proxy: 🎯 Direct
+    proxy: DIRECT
 
 proxy-groups:
-  - name: 🚀 节点选择
+  - name: 🚀 主策略
     type: select
     proxies: 
-      - 🛫 自动选择
-      - ♿️ 手动选择
+      - 🛫 地区选择
+      - ♿️ 节点选择
+      - 🌐 其他地区
+      - DIRECT
+
+  - name: 🛫 地区选择
+    type: select
+    proxies: 
       - 🇸🇬 新加坡
       - 🇭🇰 香港
-      - 🇺🇸 美国
-      - 🇨🇳 台湾
       - 🇯🇵 日本
+      - 🇺🇸 美国
       - 🇰🇷 韩国
-      - 🌐 其他地区
+      - 🇨🇳 台湾
 
-  - name: 🛫 自动选择
-    type: url-test
-    url: https://cp.cloudflare.com/generate_204
-    interval: 600
-    tolerance: 100
-    proxies: [🇸🇬 新加坡, 🇭🇰 香港, 🇺🇸 美国, 🇨🇳 台湾, 🇯🇵 日本, 🇰🇷 韩国]
+  - name: 📺 B站
+    type: select
+    proxies: 
+      - DIRECT 
+      - 🇭🇰 香港 
+      - 🇨🇳 台湾
+      - ♿️ 节点选择
+      
+  - name: 🔬 AI
+    type: select
+    proxies: 
+      - 🇺🇸 美国 
+      - 🇸🇬 新加坡
+      - 🇯🇵 日本
+      - 🚀 主策略
 
-  - {name: ♿️ 手动选择, type: select, include-all: true}
-
-  - {name: 📺 B站, type: select, proxies: [🇭🇰 香港, 🎯 Direct, 🚀 节点选择, 🇨🇳 台湾]}
-  - {name: 🔬 AI, type: select, proxies: [🇺🇸 美国, 🇸🇬 新加坡, 🇯🇵 日本, 🚀 节点选择]}
-  
   - name: 🎬 油管
     type: select
-    proxies: [🚀 节点选择, 🛫 自动选择, ♿️ 手动选择, 🇸🇬 新加坡, 🇭🇰 香港, 🇺🇸 美国, 🇨🇳 台湾, 🇯🇵 日本, 🇰🇷 韩国, 🌐 其他地区]
+    proxies: 
+      - 🇸🇬 新加坡 
+      - 🇭🇰 香港
+      - 🇺🇸 美国
+      - 🇯🇵 日本
+      - 🚀 主策略
+      - ♿️ 节点选择
 
-  - {name: 🎵 洋抖, type: select, proxies: [🇯🇵 日本, 🇺🇸 美国, 🇸🇬 新加坡, ♿️ 手动选择, 🚀 节点选择]}
-  
-  - {name: 🇭🇰 香港, type: select, include-all: true, filter: "(?i)🇭🇰|香港"}
-  - {name: 🇨🇳 台湾, type: select, include-all: true, filter: "(?i)🇨🇳|台湾"}
-  - {name: 🇯🇵 日本, type: select, include-all: true, filter: "(?i)🇯🇵|日本"}
-  - {name: 🇸🇬 新加坡, type: select, include-all: true, filter: "(?i)🇸🇬|新加坡"}
-  - {name: 🇺🇸 美国, type: select, include-all: true, filter: "(?i)🇺🇸|美国"}
-  - {name: 🇰🇷 韩国, type: select, include-all: true, filter: "(?i)🇰🇷|韩国"}
-  - {name: 🌐 其他地区, type: select, include-all: true, filter: "(?i)^(?!.*(🇭🇰|🇨🇳|🇯🇵|🇸🇬|🇺🇸|🇰🇷|韩国|美国|新加坡|日本|台湾|香港)).*"}
+  - name: 🎵 洋抖
+    type: select
+    proxies: 
+      - 🇯🇵 日本 
+      - 🇺🇸 美国
+      - 🇸🇬 新加坡
+      - 🚀 主策略
 
-  - {name: 🎯 Direct, type: select, proxies: [DIRECT, 🚀 节点选择]}
-  
+  - name: 🇭🇰 香港
+    type: fallback
+    include-all: true
+    filter: "(?i)(🇭🇰|香港)"
+    url: 'https://cp.cloudflare.com/generate_204'
+    interval: 300
+    timeout: 2000
+    lazy: true
+
+  - name: 🇨🇳 台湾
+    type: fallback
+    include-all: true
+    filter: "(?i)(🇨🇳|台湾)"
+    url: 'https://cp.cloudflare.com/generate_204'
+    interval: 300
+    timeout: 2000
+    lazy: true
+
+  - name: 🇯🇵 日本
+    type: fallback
+    include-all: true
+    filter: "(?i)(🇯🇵|日本)"
+    url: 'https://cp.cloudflare.com/generate_204'
+    interval: 300
+    timeout: 2000
+    lazy: true
+
+  - name: 🇸🇬 新加坡
+    type: fallback
+    include-all: true
+    filter: "(?i)(🇸🇬|新加坡)"
+    url: 'https://cp.cloudflare.com/generate_204'
+    interval: 300
+    timeout: 2000
+    lazy: true
+
+  - name: 🇺🇸 美国
+    type: fallback
+    include-all: true
+    filter: "(?i)(🇺🇸|美国)"
+    url: 'https://cp.cloudflare.com/generate_204'
+    interval: 300
+    timeout: 2000
+    lazy: true
+
+  - name: 🇰🇷 韩国
+    type: fallback
+    include-all: true
+    filter: "(?i)(🇰🇷|韩国)"
+    url: 'https://cp.cloudflare.com/generate_204'
+    interval: 300
+    timeout: 2000
+    lazy: true
+
+  - name: 🌐 其他地区
+    type: select
+    include-all: true
+    filter: "(?i)^(?!.*(🇭🇰|🇨🇳|🇯🇵|🇸🇬|🇺🇸|🇰🇷|韩国|美国|新加坡|日本|台湾|香港)).*"
+
+  - name: ♿️ 节点选择
+    type: select
+    include-all: true
+
   - name: 🐟 漏网之鱼
     type: select
-    proxies: [🚀 节点选择, 🛫 自动选择, ♿️ 手动选择, 🇸🇬 新加坡, 🇭🇰 香港, 🇺🇸 美国, 🇨🇳 台湾, 🇯🇵 日本, 🇰🇷 韩国, 🌐 其他地区, 🎯 Direct]
+    proxies: 
+      - 🚀 主策略
+      - DIRECT
 
-  - {name: 🛑 广告拦截, type: select, proxies: [REJECT, 🎯 Direct]}
-
+  - name: 🛑 广告拦截
+    type: select
+    proxies: 
+      - REJECT
+      - DIRECT
 rules:
   - RULE-SET,AWAvenue_Ads_Rule,🛑 广告拦截
-  - DST-PORT,22,🎯 Direct
+  - DST-PORT,22,DIRECT
   - AND,((NETWORK,UDP),(DST-PORT,443),(RULE-SET,google)),REJECT
 
-  - DOMAIN-SUFFIX,steamcontent.com,🎯 Direct
-  - DOMAIN-SUFFIX,steamserver.net,🎯 Direct
-  - DOMAIN-SUFFIX,steamcdn-a.akamaihd.net,🎯 Direct
-  - DOMAIN-SUFFIX,download.epicgames.com,🎯 Direct
-  - DOMAIN-SUFFIX,cdn.epicgames.com,🎯 Direct
+  - DOMAIN-SUFFIX,steamcontent.com,DIRECT
+  - DOMAIN-SUFFIX,steamserver.net,DIRECT
+  - DOMAIN-SUFFIX,steamcdn-a.akamaihd.net,DIRECT
+  - DOMAIN-SUFFIX,download.epicgames.com,DIRECT
+  - DOMAIN-SUFFIX,cdn.epicgames.com,DIRECT
 
-  - RULE-SET,steam_domain,🚀 节点选择
-  - RULE-SET,epicgames_domain,🚀 节点选择
+  - RULE-SET,steam_domain,🚀 主策略
+  - RULE-SET,epicgames_domain,🚀 主策略
 
-  - DOMAIN-SUFFIX,bilivideo.com,🎯 Direct
-  - DOMAIN-SUFFIX,bilivideo.cn,🎯 Direct
-  - DOMAIN-SUFFIX,hdslb.com,🎯 Direct
-  - DOMAIN-SUFFIX,szbdyd.com,🎯 Direct  
+  - DOMAIN-SUFFIX,bilivideo.com,DIRECT
+  - DOMAIN-SUFFIX,bilivideo.cn,DIRECT
+  - DOMAIN-SUFFIX,hdslb.com,DIRECT
+  - DOMAIN-SUFFIX,szbdyd.com,DIRECT  
   - DOMAIN,api.bilibili.com,📺 B站
   - DOMAIN,app.bilibili.com,📺 B站
   - DOMAIN,bangumi.bilibili.com,📺 B站
@@ -148,21 +227,21 @@ rules:
   - RULE-SET,youtube_domain,🎬 油管
   - RULE-SET,tiktok_domain,🎵 洋抖
   - RULE-SET,spotify_domain, 🇭🇰 香港
-  - RULE-SET,onedrive_domain,🎯 Direct
+  - RULE-SET,onedrive_domain,DIRECT
 
-  - RULE-SET,google,🚀 节点选择
-  - RULE-SET,geoip-google,🚀 节点选择
-  - RULE-SET,telegram_ip,🚀 节点选择,no-resolve
-  - RULE-SET,telegram_domain,🚀 节点选择
+  - RULE-SET,google,🚀 主策略
+  - RULE-SET,geoip-google,🚀 主策略
+  - RULE-SET,telegram_ip,🚀 主策略,no-resolve
+  - RULE-SET,telegram_domain,🚀 主策略
 
-  - RULE-SET,private_domain,🎯 Direct
-  - RULE-SET,cn_domain,🎯 Direct
-  - RULE-SET,cn_ip,🎯 Direct,no-resolve
-  - DOMAIN-SUFFIX,cn,🎯 Direct
+  - RULE-SET,private_domain,DIRECT
+  - RULE-SET,cn_domain,DIRECT
+  - RULE-SET,cn_ip,DIRECT,no-resolve
+  - DOMAIN-SUFFIX,cn,DIRECT
 
-  - RULE-SET,gfw_domain,🚀 节点选择
-  - RULE-SET,geolocation-!cn,🚀 节点选择
-  - RULE-SET,proxy,🚀 节点选择
+  - RULE-SET,gfw_domain,🚀 主策略
+  - RULE-SET,geolocation-!cn,🚀 主策略
+  - RULE-SET,proxy,🚀 主策略
   
   - MATCH,🐟 漏网之鱼
 
