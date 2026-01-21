@@ -102,7 +102,7 @@
       "sniff_override_destination": true
     }
   ],
-  "outbounds": [
+"outbounds": [
     {
       "tag": "🚀 主策略",
       "type": "selector",
@@ -174,56 +174,46 @@
     },
     {
       "tag": "🇭🇰 香港",
-      "type": "urltest",
-      "outbounds": [],
-      "url": "https://cp.cloudflare.com/generate_204",
-      "interval": "10m",
-      "tolerance": 50
+      "type": "selector",
+      "outbounds": []
     },
     {
       "tag": "🇨🇳 台湾",
-      "type": "urltest",
-      "outbounds": [],
-      "url": "https://cp.cloudflare.com/generate_204",
-      "interval": "10m",
-      "tolerance": 50
+      "type": "selector",
+      "outbounds": []
     },
     {
       "tag": "🇯🇵 日本",
-      "type": "urltest",
-      "outbounds": [],
-      "url": "https://cp.cloudflare.com/generate_204",
-      "interval": "10m",
-      "tolerance": 50
+      "type": "selector",
+      "outbounds": []
     },
     {
       "tag": "🇸🇬 新加坡",
-      "type": "urltest",
-      "outbounds": [],
-      "url": "https://cp.cloudflare.com/generate_204",
-      "interval": "10m",
-      "tolerance": 50
+      "type": "selector",
+      "outbounds": []
     },
     {
       "tag": "🇺🇸 美国",
-      "type": "urltest",
-      "outbounds": [],
-      "url": "https://cp.cloudflare.com/generate_204",
-      "interval": "10m",
-      "tolerance": 50
+      "type": "selector",
+      "outbounds": []
     },
     {
       "tag": "🇰🇷 韩国",
-      "type": "urltest",
-      "outbounds": [],
-      "url": "https://cp.cloudflare.com/generate_204",
-      "interval": "10m",
-      "tolerance": 50
+      "type": "selector",
+      "outbounds": []
     },
     {
       "tag": "🌐 其他地区",
       "type": "selector",
       "outbounds": []
+    },
+    {
+      "tag": "🎯 Direct",
+      "type": "selector",
+      "outbounds": [
+        "DIRECT",
+        "🚀 主策略"
+      ]
     },
     {
       "tag": "🐟 漏网之鱼",
@@ -238,7 +228,7 @@
       "type": "selector",
       "outbounds": [
         "REJECT",
-        "DIRECT"
+        "🎯 Direct"
       ]
     },
     {
@@ -533,4 +523,3 @@
     }
   }
 }
-
