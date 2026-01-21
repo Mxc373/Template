@@ -15,13 +15,13 @@
         "tag": "google",
         "type": "https",
         "server": "8.8.8.8",
-        "detour": "🚀 节点选择"
+        "detour": "🚀 主策略"
       },
       {
         "tag": "local",
         "type": "https",
         "server": "223.5.5.5",
-        "detour": "🎯 Direct"
+        "detour": "DIRECT"
       }
     ],
     "rules": [
@@ -79,7 +79,8 @@
       "tag": "tun-in",
       "interface_name": "tun0",
       "address": [
-        "172.19.0.1/30"
+        "172.19.0.1/30",
+        "fd00::1/126"
       ],
       "auto_route": true,
       "strict_route": false,
@@ -104,37 +105,29 @@
   ],
   "outbounds": [
     {
-      "tag": "🚀 节点选择",
+      "tag": "🚀 主策略",
       "type": "selector",
       "outbounds": [
-        "🛫 自动选择",
-        "♿️ 手动选择",
-        "🇸🇬 新加坡",
-        "🇭🇰 香港",
-        "🇺🇸 美国",
-        "🇨🇳 台湾",
-        "🇯🇵 日本",
-        "🇰🇷 韩国",
-        "🌐 其他地区"
+        "🛫 地区选择",
+        "♿️ 节点选择",
+        "🌐 其他地区",
+        "DIRECT"
       ]
     },
     {
-      "tag": "🛫 自动选择",
-      "type": "urltest",
+      "tag": "🛫 地区选择",
+      "type": "selector",
       "outbounds": [
         "🇸🇬 新加坡",
         "🇭🇰 香港",
-        "🇺🇸 美国",
-        "🇨🇳 台湾",
         "🇯🇵 日本",
-        "🇰🇷 韩国"
-      ],
-      "url": "https://cp.cloudflare.com/generate_204",
-      "interval": "10m",
-      "tolerance": 50
+        "🇺🇸 美国",
+        "🇰🇷 韩国",
+        "🇨🇳 台湾"
+      ]
     },
     {
-      "tag": "♿️ 手动选择",
+      "tag": "♿️ 节点选择",
       "type": "selector",
       "outbounds": []
     },
@@ -142,10 +135,10 @@
       "tag": "📺 B站",
       "type": "selector",
       "outbounds": [
+        "DIRECT",
         "🇭🇰 香港",
-        "🎯 Direct",
-        "🚀 节点选择",
-        "🇨🇳 台湾"
+        "🇨🇳 台湾",
+        "♿️ 节点选择"
       ]
     },
     {
@@ -155,23 +148,19 @@
         "🇺🇸 美国",
         "🇸🇬 新加坡",
         "🇯🇵 日本",
-        "🚀 节点选择"
+        "🚀 主策略"
       ]
     },
     {
       "tag": "🎬 油管",
       "type": "selector",
       "outbounds": [
-        "🚀 节点选择",
-        "🛫 自动选择",
-        "♿️ 手动选择",
         "🇸🇬 新加坡",
         "🇭🇰 香港",
         "🇺🇸 美国",
-        "🇨🇳 台湾",
         "🇯🇵 日本",
-        "🇰🇷 韩国",
-        "🌐 其他地区"
+        "🚀 主策略",
+        "♿️ 节点选择"
       ]
     },
     {
@@ -181,39 +170,56 @@
         "🇯🇵 日本",
         "🇺🇸 美国",
         "🇸🇬 新加坡",
-        "♿️ 手动选择",
-        "🚀 节点选择"
+        "🚀 主策略"
       ]
     },
     {
       "tag": "🇭🇰 香港",
-      "type": "selector",
-      "outbounds": []
+      "type": "urltest",
+      "outbounds": [],
+      "url": "https://cp.cloudflare.com/generate_204",
+      "interval": "10m",
+      "tolerance": 50
     },
     {
       "tag": "🇨🇳 台湾",
-      "type": "selector",
-      "outbounds": []
+      "type": "urltest",
+      "outbounds": [],
+      "url": "https://cp.cloudflare.com/generate_204",
+      "interval": "10m",
+      "tolerance": 50
     },
     {
       "tag": "🇯🇵 日本",
-      "type": "selector",
-      "outbounds": []
+      "type": "urltest",
+      "outbounds": [],
+      "url": "https://cp.cloudflare.com/generate_204",
+      "interval": "10m",
+      "tolerance": 50
     },
     {
       "tag": "🇸🇬 新加坡",
-      "type": "selector",
-      "outbounds": []
+      "type": "urltest",
+      "outbounds": [],
+      "url": "https://cp.cloudflare.com/generate_204",
+      "interval": "10m",
+      "tolerance": 50
     },
     {
       "tag": "🇺🇸 美国",
-      "type": "selector",
-      "outbounds": []
+      "type": "urltest",
+      "outbounds": [],
+      "url": "https://cp.cloudflare.com/generate_204",
+      "interval": "10m",
+      "tolerance": 50
     },
     {
       "tag": "🇰🇷 韩国",
-      "type": "selector",
-      "outbounds": []
+      "type": "urltest",
+      "outbounds": [],
+      "url": "https://cp.cloudflare.com/generate_204",
+      "interval": "10m",
+      "tolerance": 50
     },
     {
       "tag": "🌐 其他地区",
@@ -221,28 +227,11 @@
       "outbounds": []
     },
     {
-      "tag": "🎯 Direct",
-      "type": "selector",
-      "outbounds": [
-        "DIRECT",
-        "🚀 节点选择"
-      ]
-    },
-    {
       "tag": "🐟 漏网之鱼",
       "type": "selector",
       "outbounds": [
-        "🚀 节点选择",
-        "🛫 自动选择",
-        "♿️ 手动选择",
-        "🇸🇬 新加坡",
-        "🇭🇰 香港",
-        "🇺🇸 美国",
-        "🇨🇳 台湾",
-        "🇯🇵 日本",
-        "🇰🇷 韩国",
-        "🌐 其他地区",
-        "🎯 Direct"
+        "🚀 主策略",
+        "DIRECT"
       ]
     },
     {
@@ -250,7 +239,7 @@
       "type": "selector",
       "outbounds": [
         "REJECT",
-        "🎯 Direct"
+        "DIRECT"
       ]
     },
     {
@@ -405,11 +394,11 @@
         "domain_suffix": [
             "googleapis.cn"
         ],
-        "outbound": "🚀 节点选择"
+        "outbound": "🚀 主策略"
       },
       {
         "port": 22,
-        "outbound": "🎯 Direct"
+        "outbound": "DIRECT"
       },
       {
         "domain_keyword": [
@@ -418,7 +407,7 @@
           "ipleak",
           "whoer"
         ],
-        "outbound": "🚀 节点选择"
+        "outbound": "🚀 主策略"
       },
       {
         "domain_suffix": [
@@ -427,7 +416,7 @@
           "bilivideo.net",
           "hdslb.com"
         ],
-        "outbound": "🎯 Direct"
+        "outbound": "DIRECT"
       },
       {
         "domain_suffix": [
@@ -437,7 +426,7 @@
           "download.epicgames.com",
           "cdn.epicgames.com"
         ],
-        "outbound": "🎯 Direct"
+        "outbound": "DIRECT"
       },
       {
         "domain_keyword": "bilibili",
@@ -449,11 +438,11 @@
       },
       {
         "rule_set": "geosite-steam",
-        "outbound": "🚀 节点选择"
+        "outbound": "🚀 主策略"
       },
       {
         "rule_set": "geosite-epicgames",
-        "outbound": "🚀 节点选择"
+        "outbound": "🚀 主策略"
       },
       {
         "domain_suffix": [
@@ -498,14 +487,14 @@
           "geosite-telegram",
           "geoip-telegram"
         ],
-        "outbound": "🚀 节点选择"
+        "outbound": "🚀 主策略"
       },
       {
         "rule_set": [
           "geosite-google",
           "geoip-google"
         ],
-        "outbound": "🚀 节点选择"
+        "outbound": "🚀 主策略"
       },
       {
         "rule_set": [
@@ -514,15 +503,15 @@
           "geosite-onedrive",
           "geoip-cn"
         ],
-        "outbound": "🎯 Direct"
+        "outbound": "DIRECT"
       },
       {
         "domain_suffix": ".cn",
-        "outbound": "🎯 Direct"
+        "outbound": "DIRECT"
       },
       {
         "port": 3478,
-        "outbound": "🚀 节点选择"
+        "outbound": "🚀 主策略"
       },
       {
         "rule_set": [
@@ -530,7 +519,7 @@
           "geosite-geolocation-!cn",
           "proxy"
         ],
-        "outbound": "🚀 节点选择"
+        "outbound": "🚀 主策略"
       }
     ],
     "final": "🐟 漏网之鱼",
@@ -545,4 +534,3 @@
     }
   }
 }
-
