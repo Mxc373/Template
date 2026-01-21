@@ -20,8 +20,7 @@
       {
         "tag": "local",
         "type": "https",
-        "server": "223.5.5.5",
-        "detour": "DIRECT"
+        "server": "223.5.5.5"
       }
     ],
     "rules": [
@@ -534,3 +533,4 @@
     }
   }
 }
+
