@@ -194,6 +194,12 @@ proxy-groups:
       - REJECT
       - DIRECT
 rules:
+# 拦截 Google/YouTube 的 UDP 443 端口，强迫它走 TCP
+  - AND,((NETWORK,UDP),(DST-PORT,443),(DOMAIN-SUFFIX,google.com)),REJECT
+  - AND,((NETWORK,UDP),(DST-PORT,443),(DOMAIN-SUFFIX,googlevideo.com)),REJECT
+  - AND,((NETWORK,UDP),(DST-PORT,443),(DOMAIN-SUFFIX,youtube.com)),REJECT
+  - AND,((NETWORK,UDP),(DST-PORT,443),(DOMAIN-SUFFIX,gvt1.com)),REJECT
+  
   - RULE-SET,AWAvenue_Ads_Rule,🛑 广告拦截
   - DST-PORT,22,DIRECT
   - AND,((NETWORK,UDP),(DST-PORT,443),(RULE-SET,google)),REJECT
@@ -275,3 +281,4 @@ rule-providers:
   geoip-google: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/google.mrs", path: ./rules/geoip-google.mrs }
   
   fake_ip_filter_DustinWin: { <<: *domain, url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/fakeip-filter.mrs", path: ./ruleset/fakeip.mrs }
+
